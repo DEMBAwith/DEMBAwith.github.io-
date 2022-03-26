@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Cauthy列</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">集合・位相・写像・空間</a></li>
+<li class="crumb">Cauthy列</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>Cauthy列(Cauthy Sequence)</h1>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+<a href="metric.html">距離空間</a>$(X,d)$と$(X,d)$上の点列$\{p_n\}$を定義する。$\{p_n\}$が次を満たすとき、$\{p_n\}$を<b>Cauthy列</b>(もしくはCauthy点列、基本列、基本点列)と呼ぶ。
+\begin{eqnarray}
+\forall_{\epsilon\in\mathbb{R};\epsilon>0}\exists_{N\in\mathbb{N}}\forall_{m,n\in\mathbb{N}}\left[\left[m>N \land n>N\right] \rightarrow d(p_m,p_n)<\epsilon \right]
+\end{eqnarray}
+</p>
+</div>
+<h2>Properties</h2>
+<h3>[収束点列$\rightarrow$Cauthy列] is true</h3>
+<p>
+距離空間$(X,d)$上の点列$\{p_n\}$が点$p$に収束するとき、定義より以下が成立する。
+\begin{eqnarray}
+\forall_{\epsilon\in\mathbb{R};\epsilon>0}\exists_{N\in\mathbb{N}}\forall_{n\in\mathbb{N}}\left[n< N\rightarrow d(p_n,p)<\epsilon \right] \label{conv}
+\end{eqnarray}
+この収束点列$\{p_n\}$がCauthy列であることを示す。ある$n,m\in\mathbb{N}$に関する距離$d(p_m,p_n)$は、<a href="metric.html">距離の定義</a>より次を満たす。
+\begin{eqnarray}
+d(p_m,p_n) \leq d(p_m,p)+d(p,p_n)
+\end{eqnarray}
+eq.($\ref{conv}$)より、任意の$\epsilon$に対して$d(p_m,p)<\epsilon,d(p,p_n)<\epsilon$となるように$m,n$の上限$N$を選べる。任意の$\epsilon'$に対しては$d(p_m,p)+d(p,p_n)<\epsilon'$となるように$N$を選ぶこともできるため、任意の$\epsilon'$に対して次が成立する。
+\begin{eqnarray}
+\exists_{N\in\mathbb{N}}\forall_{m,n\in\mathbb{N}}\left[\left[m>N \land n>N\right] \rightarrow d(p_m,p_n)<\epsilon \right]
+\end{eqnarray}
+</p>
+<h3>[Cauthy列\rightarrwo収束点列] is not always true</h3>
+<p>
+■反例<br>
+有理数の集合$\mathbb{Q}$上の点列$\{p_n\}$を次のように定義する。
+\begin{eqnarray}
+p_n \equiv \left(1+\frac{1}{n}\right)^{n}
+\end{eqnarray}
+これはCauthy列でありながら、収束はしない。数式上はNapier数$e$に収束はするが、点列が$\mathbb{Q}$上に定義されているため収束の定義eq.($\ref{conv}$)を満たさない。
+</p>
+
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>松坂和夫,集合・位相入門,岩波書店,1968.</cite></li>
+<li><cite>W.Rudin,Principles of Mathematical Analysis,McGraw-Hill,1976.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

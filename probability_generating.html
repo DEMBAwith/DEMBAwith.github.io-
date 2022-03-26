@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>確率母関数</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+    processEscapes: true,
+      tags: 'ams',
+      macros: {
+        ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+        tcdegree: ['\\unicode{xb0}'],
+        tccelsius: ['\\unicode{x2103}'],
+        tcperthousand: ['\\unicode{x2030}'],
+        tcmu: ['\\unicode{x3bc}'],
+        tcohm: ['\\unicode{x3a9}']
+      }
+    },
+    chtml: {
+      matchFontHeight: false,
+      displayAlign: "left",
+      displayIndent: "2em"
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">確率・統計論</a></li>
+<li class="crumb">確率母関数</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>確率母関数(Probability Generating Function)</h1>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+確率変数$X$の確率母関数$g(\theta)$は、実数$\theta\in\mathbb{R}$を使って次のように定義される。
+\begin{eqnarray}
+g(\theta) \equiv \mathbb{E}(\theta^X)
+\end{eqnarray}
+</p>
+</div>
+<h2>Theorem</h2>
+<div class="squre">
+<p class="psq">
+確率母関数$g(\theta)$の導関数から確率変数$X$のmomentを次の導出することができる。
+\begin{eqnarray}
+\mathbb{E}(x) &=& g'(1) \\
+\mathbb{E}(x^2) &=& g''(1)+g'(1) \\
+\mathbb{E}(x^3) &=& g'''(1)+3g''(1)+g'(1) \\
+&\cdots&
+\end{eqnarray}
+</p>
+</div>
+<h2>Proof</h2>
+<p>
+確率分布と期待値の定義より、次が成立する。
+\begin{eqnarray}
+g(1) = \mathbb{E}(1) = 1
+\end{eqnarray}
+$g(\theta)$が$\theta=1$近傍で$C^{k}$級とすれば、次の通り$\theta$に係る導関数が導出できる。
+\begin{eqnarray}
+g(\theta) &=& \sum_{x}p(x)\theta^x \\
+\Rightarrow g'(\theta) &=& \sum_{x}p(x)x\theta^{x-1}\\
+\Rightarrow g''(\theta) &=& \sum_{x}p(x)x(x-1)\theta^{x-2} \\
+\Rightarrow g'''(\theta) &=& \sum_{x}p(x)x(x-1)(x-2)\theta^{x-3} \\
+&\cdots&\\
+\Rightarrow g^{[k]}(\theta) &=& \sum_{x}p(x)x(x-1)(x-2)\cdots(x-k)\theta^{x-k}
+\end{eqnarray}
+期待値の定義より、離散分布における期待値とは次のように関連付けられる。
+\begin{eqnarray}
+g(1) &=& \sum_{x}p(x) =1 \\
+g'(1) &=& \sum_{x}p(x)x =\mathbb{E}[x]\\
+g''(1) &=& \sum_{x}p(x)x(x-1) =\mathbb{E}[x(x-1)]=\mathbb{E}[x^2]-\mathbb{E}[x] \\
+g'''(1) &=& \sum_{x}p(x)x(x-1)(x-2) =\mathbb{E}[x(x-1)(x-2)] =\mathbb{E}[x^3]-3\mathbb{E}[x^2]+2\mathbb{E}[x] \\
+&\cdots&\\
+\Rightarrow g^{[k]}(1) &=& \mathbb{E}\left[x(x-1)(x-2)\cdots(x-k)\theta^{x-k}\right]
+\end{eqnarray}
+これらを式変形すると題意が示せる。
+</p>
+<h2>離散分布</h2>
+<h3>2項分布</h3>
+<p>
+$N$回のコイントスに対し、それぞれ表が出る確率を$p$、裏が出る確率を$q(\equiv 1-p)$とする。各コイントスは独立とする。表が出る回数$x(x\in\mathbb{Z},0\leq x\leq N)$は確率変数であり、次の2項分布$B_{N,p}(x)$に従う。
+\begin{eqnarray}
+B_{N,p}(x)=\binom{N}{x}p^xq^{N-x}
+\end{eqnarray}
+確率変数$X$の確率母関数$g(\theta)$をある実数$\theta$の下、次のように定義する。
+\begin{eqnarray}
+g(\theta) &\equiv& \mathbb{E}(\theta^X) \\
+&=& \sum_{x=0}^N \theta^xB_{N,p}(x) \\
+&=& \sum_{x=0}^N \theta^x\binom{N}{x}p^xq^{N-x} \\
+&=& \sum_{x=0}^N \binom{N}{x}(\theta p)^xq^{N-x} \\
+&=& \left(\theta p + q\right)^N
+\end{eqnarray}
+$g(\theta)$の$k$階導関数まで求める。
+\begin{eqnarray}
+g(\theta) &=& \left(\theta p + q\right)^N \\
+\Rightarrow g'(\theta) &=& Np\left(\theta p + q\right)^{N-1} \\
+\Rightarrow g''(\theta) &=& N(N-1)p^2 \left(\theta p + q\right)^{N-2}\\
+&\cdots&\\
+\Rightarrow g^{[k]}(\theta) &=& N(N-1)\cdots(N-k)p^{k} \left(\theta p + q\right)^{N-k}
+\end{eqnarray}
+それぞれ、$\theta=1$を代入することで、$x$のmomentが求まる。
+\begin{eqnarray}
+\mathbb{E}(x) &=& g'(1) = Np \\
+\mathbb{E}(x^2) &=& g''(1)+g'(1) =N(N-1)p^2 + Np \\
+\mathbb{E}(x^3) &=& g'''(1)+3g''(1)+g'(1) = N(N-1)(N-2)p^3+3N(N-1)p^2+Np \\
+\end{eqnarray}
+</p>
+<h3>Poisson分布</h3>
+<p>
+$1$日で$1$分当たり$m$人の来店する店舗を考える。$\Delta t$分の間に来店する人数$x(x\in\mathbb{Z},0\leq x\leq N)$は確率変数であり、$\lambda\equiv m\Delta t$とおくと次のPoisson分布$P_{\lambda}(x)$に従う。
+</p>
+<p class="subp">
+言い換えると1日8時間営業として、全$480$分のカップに無作為にボールを投げ込んで特定の$\Delta t$個のカップに入る確率は1回の試行あたり$\frac{\Delta t}{480}$。全試行回数は$480m$回。$\Delta t$のカップに$x$回入る確率は次の2項分布に従う。
+\begin{eqnarray}
+B_{m\cdot 480分,\Delta t/480分} \ (x)
+\end{eqnarray}
+</p>
+<p>
+\begin{eqnarray}
+P_{\lambda}(x)=\frac{e^{-\lambda}\lambda^x}{x!}
+\end{eqnarray}
+確率変数$X$の確率母関数$g(\theta)$をある実数$\theta$の下、次のように定義する。
+</p>
+<h2>連続分布</h2>
+
+
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>竹内啓,『数理統計学』,東洋経済新報社,1963.</cite></li>
+<li><cite>小針晛宏,『確率・統計入門』,岩波書店,1973.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

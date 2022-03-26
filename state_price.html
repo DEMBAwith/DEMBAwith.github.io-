@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>状態価格</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">金融(Finance)</a></li>
+<li class="crumb">状態価格</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>状態価格(state price)</h1>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+<a href="radon_nikodym.html">Radon-Nikodym微分</a>$Z$を使い次を定義するとき、$\zeta$を<b>状態価格密度</b>と呼ぶ。
+\begin{eqnarray}
+\zeta(w_1,w_2,\cdots w_N)\equiv \frac{Z(w_1,w_2,\cdots w_N)}{(1+r)^N}
+\end{eqnarray}
+$\mathbb{P}(w)$をactual測度としたとき、$\zeta(w)\mathbb{P}(w)$を<b>状態価格</b>と呼ぶ。
+</p>
+</div>
+<h2>Properties</h2>
+<h3>時点$n=0$の現在価値</h3>
+<p>
+$V_n(w_1,w_2\cdots w_n)$はrisk-neutral測度下で<a href="martingales.html">Martingale過程</a>なので次が成立する。
+\begin{eqnarray}
+V_0&=&\tilde{\mathbb{E}}_n\left[\frac{V_N}{(1+r)^N}\right]
+\end{eqnarray}
+Radon-Nikodym微分$Z$を使って、actual測度下の期待値に書き換える。
+\begin{eqnarray}
+V_0&=&\mathbb{E}_n\left[Z\frac{V_N}{(1+r)^N}\right]\\
+   &=&\mathbb{E}\left[\zeta V_N\right] \\
+   &=&\sum_{w\in \Omega}V_N(w)\zeta(w)\mathbb{P}(w)
+\end{eqnarray}
+特に、path-dependentな2項モデルにおいては次のように書ける。
+\begin{eqnarray}
+V_0 &=&\sum_{m\in \textrm{all possible case at}n=N}v_m\zeta_mp_m \label{v0}
+\end{eqnarray}
+</p>    
+<h3>各試行結果における単位現在価値</h3>
+<p>
+\begin{eqnarray}
+V(w_1,\cdots w_N)=
+\left\{
+\begin{array}{l}
+1 \quad\textrm{if}\ (w_1,\cdots w_N)=(\bar{w_1},\cdots \bar{w_N}) \\
+0 \quad\textrm{otherwise}
+\end{array}
+\right.
+\end{eqnarray}
+</p>
+<p class="subp">執筆中</p>
+<h3>時点$n$の現在価値</h3>
+<p>
+\begin{eqnarray}
+V_n&=&\tilde{\mathbb{E}}_n\left[\frac{V_N}{(1+r)^{N-n}}\right]\\
+&=& \frac{1}{\zeta_n}\mathbb{E}_n\left[\zeta_NV_N\right]
+\end{eqnarray}
+</p>    
+<h3>効用関数の期待値の極大化</h3>
+<p>
+<a href="utility_function.html">効用関数</a>を次のように定義する。
+\begin{eqnarray}
+U(V_N)&\equiv& \ln V_N
+\end{eqnarray}
+path-independentな<a href="binomial_model.html">2項モデル</a>においては、状態価格$\zeta$を使って$U(X_N)$のactual測度下の期待値$\epsilon\equiv \mathbb{E}\left[U(V_N)\right]$が極大になるようなposition$\Delta_0,\Delta_1\cdots \Delta_N$を求めることができる。eq.(\ref{v0})より次が成立する。
+\begin{eqnarray}
+C(v_1,v_2\cdots v_M) &\equiv&\sum_{m\in \textrm{all possible case at}n=N}v_m\zeta_mp_m -V_0 =0
+\end{eqnarray}
+この拘束条件の元、$\epsilon$を極大化させる。
+\begin{eqnarray}
+\epsilon(v_1,v_2\cdots v_M) &\equiv& \mathbb{E}\left[U(V_N)\right]\\
+&=&\sum_{w\in \Omega}p^{\# H}q^{\# T}\ln V_N(w_1,w_2,\cdots w_N) \\
+&=&\sum_{w\in \Omega}p^{\# H_m}q^{\# T_m}\ln v_m
+\end{eqnarray}
+実数$L$を次の通り定義する。
+\begin{eqnarray}
+L(v_1,v_2\cdots v_M,\lambda) &=& \epsilon(v_1,v_2\cdots v_M) - \lambda C(v_1,v_2\cdots v_M)
+\end{eqnarray}
+<a href="lagrange_multiplier.html">Lagrange未定乗数法</a>を使って極大値における$(v_1,v_2\cdots v_M)$を求める。
+\begin{eqnarray}
+\frac{\partial L}{\partial v_m} = 0 \quad \textrm{for } m=1,2\cdots M
+\end{eqnarray}
+</p>
+
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>S.E.Shreve,Stochastic Calculus for Finance I,Springer,2004.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<p class="mb10"></p>
+<footer>©2022 DEMBA　　　　　　<b>免責事項</b>はこちら<a href="index.html#menseki">■</a></footer>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>距離・距離空間</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">集合・位相・写像・空間</a></li>
+<li class="crumb">距離・距離空間</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>距離(Metric)・距離空間(Metric Space)</h1>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+空でない集合$X$上で写像$d:X\times X \rightarrow \mathbb{R}$を定義する。$d$が次を満たすとき$d(x,y)$を<b>距離</b>、$(X,d)$を<b>距離空間</b>と呼ぶ。
+</p>
+<ul class="ulsq">
+<li>$\forall_{x,y\in X}\left[d(x,y)\geq 0\right]$ is ture.</li>
+<li>$\forall_{x,y\in X}\left[d(x,y)=0 \Leftrightarrow x=y \right]$</li>
+<li>$\forall_{x,y\in X}\left[d(x,y) = d(y,x)\right]$ is ture.</li>
+<li>$\forall_{x,y,z\in X}\left[d(x,z) \leq d(x,y)+d(y,z)\right]$ is ture.</li>
+</ul>
+</div>
+
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>松坂和夫,集合・位相入門,岩波書店,1968.</cite></li>
+<li><cite>W.Rudin,Principles of Mathematical Analysis,McGraw-Hill,1976.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

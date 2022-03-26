@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>インスタンス起動・停止権限のポリシー設定</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">IT・情報システム</a></li>
+<li class="crumb">インスタンス起動・停止権限のポリシー設定</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>インスタンス起動・停止権限のポリシー設定</h1>
+<h2>目的・経緯</h2>
+<p class="subp">EC2 Webサーバの公開はこちらを参照</p>
+<ol>
+<li>EC2を起動しっぱなしだと費用が増えるので、普段は停止して必要なときに起動できるようにしたい</li>
+<li>AWS mobile consoleで起動させよう</li>
+<li>ルートユーザにはyubikeyのU2Fを設定しよう</li>
+<li>Mobileからはログインできなくなった</li>
+<li>EC2インスタンスの起動・停止だけができるユーザを新たに作って、そいつをパスワードサインインできるようにすればよいのでは？</li>
+</ol>
+<h2>Ⅰ. IAMユーザの追加</h2>
+<p>
+1.ルートユーザでサインインする<br>
+2.コンソール画面の検索で「IAM」と入力し、(おそらく)一番上に出てくるIAMメニューを選択。<br>
+<img class="im" src="images/aws_iam.jpg" alt="img" height="300px"><br>
+3.左側メニューの「ユーザ」を選択。<br>
+<img class="im" src="images/aws_iam_2.jpg" alt="img" height="300px"><br>
+4.「ユーザを追加」を選択。<br>
+<img class="im" src="images/aws_iam_3.jpg" alt="img" height="300px"><br>
+5.「ユーザ名」は適当に入力。「AWS 認証情報タイプ」はコンソールに入るだけなので「パスワード - AWS マネジメントコンソールへのアクセス」を選択。「コンソールのパスワード」は自分で考えるの面倒なので「自動生成パスワード」を選択。「パスワードのリセットが必要」は特に拘りは無いがチェックを入れる。<br>
+<img class="im" src="images/aws_iam_4.jpg" alt="img" height="400px"><br>
+6.権限は後で与えるので、何もせず次のステップへ。<br>
+<img class="im" src="images/aws_iam_5.jpg" alt="img" height="400px"><br>
+7. タグの編集<br>
+特にタグは要らないので、何もせず次のステップへ。<br>
+<img class="im" src="images/aws_iam_6.jpg" alt="img" height="400px"><br>
+8. 登録内容の確認<br>
+特に問題なければ、「ユーザーの作成」を選択。<br>
+<img class="im" src="images/aws_iam_7.jpg" alt="img" height="400px"><br>
+9. IAMユーザ追加完了/パスワード発行<br>
+これでIAMユーザの追加が完了。User Name/Password/ConsoleURLを記載したCSVはダウンロードしておく。ダウンロードし忘れたら後でIAMユーザの管理画面でパスワードリセットする。<br>
+<img class="im" src="images/aws_iam_9.jpg" alt="img" height="300px">
+<h2>Ⅱ. ポリシーの追加</h2>
+<p>
+1. IAMユーザ選択<br>
+Ⅰ-3の画面へ移動し、新規作成したユーザ名を選択する<br>
+<img class="im" src="images/aws_iam_8.jpg" alt="img" height="250px"><br>
+2. ユーザ情報編集<br>
+「アクセス権限」タブの「アクセス権限の追加」を選択<br>
+<img class="im" src="images/aws_iam_10.jpg" alt="img" height="250px"><br>
+3. アクセス権限の選択<br>
+「既存のポリシーを直接アタッチ」の「ポリシー作成」を選択。※既存ポリシー"AmazonEC2～"の中に適切なものがあるかもしれないが、見つからなかったので使わない。<br>
+<img class="im" src="images/aws_iam_11.jpg" alt="img" height="350px"><br>
+4. ポリシーの作成<br>
+JSONを次の通り編集し、次のステップへ。Region/アカウントID/インスタンスIDはコンソールの別画面から調べる。<br>
+<img class="im" src="images/aws_iam_12.jpg" alt="img" height="350px">
+</p>
+<pre>
+<code class="codeblock">
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Action": ["ec2:StartInstances","ec2:StopInstances"],
+          "Resource": "arn:aws:ec2:<b class="bcode">「Region」</b>:<b class="bcode">「アカウントID」</b>:instance/<b class="bcode">「インスタンスID」</b>",
+          "Condition": {
+              "StringEquals": {
+                  "ec2:ResourceTag/Owner": "${aws:username}"
+              }
+          }
+      },
+      {
+          "Effect": "Allow",
+          "Action": "ec2:DescribeInstances",
+          "Resource": "*"
+      }
+  ]
+}
+</code>
+</pre>
+<p>
+Regionは以下画面から確認<br>
+<img class="im" src="images/aws_iam_14.jpg" alt="img" height="200px"><br>  
+アカウントIDは以下画面から確認<br>
+<img class="im" src="images/aws_iam_15.jpg" alt="img" height="200px"><br>
+5. タグの編集<br>
+特にタグは要らないので、何もせず次のステップへ。<br>
+<img class="im" src="images/aws_iam_13.jpg" alt="img" height="200px"><br>
+6. ポリシー名称<br>
+適当な名前を付け、「ポリシーの作成」を選択<br>
+<img class="im" src="images/aws_iam_16.jpg" alt="img" height="300px">
+</p>
+<h2>Ⅲ. EC2へのタグ追加</h2>
+<p>
+1. EC2のタグ追加<br>
+対象のEC2に次のタグを追加する。<br>
+<img class="im" src="images/aws_iam_17.jpg" alt="img" height="200px">
+</p>
+<code>{"Owner":"<b class="bcode">「追加したユーザ名」</b>",}</code>
+<h2>Ⅳ. 権限追加したIAMユーザでインスタンス起動できるか確認</h2>
+<p>
+1. サインイン<br>
+Ⅰ-9で提供されるURLにアクセスするとアカウントIDがプリセットされた状態でサインイン画面が出る。パスワードでサインイン。<br>
+<img class="im" src="images/aws_iam_18.jpg" alt="img" height="400px"><br>
+2. インスタンス起動<br>
+インスタンス起動を押すと、正常に起動する<br>
+3. 今度はMobile Consoleで確認<br>
+<img class="im" src="images/aws_iam_19.jpg" alt="img" height="350px">
+<img class="im" src="images/aws_iam_20.jpg" alt="img" height="350px">
+<img class="im" src="images/aws_iam_21.jpg" alt="img" height="350px"><br>
+…残念ながらこのポリシー設定ではmobile consoleからのアクセスは許可されない様子。しばらくはブラウザから操作するしかなさそう。<br>
+</p>
+
+
+<p class="mb10"></p>
+<p>以上</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>AWS>ドキュメント>Amazon EC2>Linuxインスタンス用ユーザーガイド,<b>Amazon EC2のIAMポリシー</b>,"https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-policies-for-amazon-ec2.html",閲覧日2022/03/19.</cite></li>
+<li><cite>AWS>ドキュメント>Amazon EC2>Linuxインスタンス用ユーザーガイド,<b>ポリシーの構造</b>,"https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-policy-structure.html#policy-syntax",閲覧日2022/03/19.</cite></li>
+<li><cite>AWS>ドキュメント>Amazon EC2>Linuxインスタンス用ユーザーガイド,<b>Example IAM identity-based policies</b>,"https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html",閲覧日2022/03/19.</cite></li>
+<li><cite>AWS>ドキュメント>Amazon EC2>Linuxインスタンス用ユーザーガイド,<b>Amazon EC2: Allows starting or stopping EC2 instances a user has tagged, programmatically and in the console</b>,"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_ec2_tag-owner.html",閲覧日2022/03/19.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

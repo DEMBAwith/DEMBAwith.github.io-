@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Americanオプション</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">金融(FINANCE)</a></li>
+<li class="crumb">Americanオプション</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>Americanオプション</h1>
+<h2>Definition</h2>
+<h3>用語・記号の定義</h3>
+<table class="deftable">
+<tr>
+    <th>記号・用語</th>
+    <th>定義</th>
+</tr>
+<tr>
+    <td>client</td>
+    <td>金融商品の買い手。long positionを持つ</td>
+</tr>
+<tr>
+    <td>agent</td>
+    <td>金融商品の売り手。short poisionを持つ</td>
+</tr>
+<tr>
+    <td>$n$</td>
+    <td>時刻。$n\in \{0,\mathbb{N} \}$とし、$n=0$を契約時、$n=N$を満期時と定義する</td>
+</tr>
+<tr>
+    <td>$r$</td>
+    <td>money marketにおいて、時刻が$1$進む間のinterest rate。</td>
+</tr>
+<tr>
+    <td>$S_{n}$</td>
+    <td>時点$n$におけるstock $S$の価額</td>
+</tr>
+<tr>
+    <td>$X_{n}$</td>
+    <td>時点$n$におけるagentの持つ全資産$X$の価額</td>
+</tr>
+<tr>
+    <td>$K$</td>
+    <td>strike price(行使価格)</td>
+</tr>
+<tr>
+    <td>$V_n$</td>
+    <td>時点$n$における金融商品$V$の価額</td>
+</tr>
+</table>
+<h3>系の定義</h3>
+<div class="squre">
+<ul class="ulsq">
+<li>資産は「株式$S$」「金融商品$V$」「資金」の3種類のみ考慮</li>
+<li>資金は全てmoney marketへ投資する</li>
+<li>金融商品$V$は株式$S$(1単位)を原資産としたAmericanオプションとする。call/putは問わない。</li>
+<li>optionはpath-independentとする(BarrierとかAsianではない)</li>
+<li>interest rate $r$は時刻$n$に依らず一定とする(例えば、$n$を年数とするならば年利$r$が満期日まで変わらない仮定)</li>
+<li>interest rate $r$はinvestment/borrowingで同一とする。</li>
+<li>株式$S$は分割可能。最小単位を$1$とはしない。</li>
+<li>株価$S_n$は購入／売却で同一とする。(bid-ask spreadを"0"とする)</li>
+<li><b>agentは、権利行使日(execise date)における支払を賄うよう(ヘッジするように)資産$X$(資金+株式$S$)を運用する</b></li>
+<li><a href="no_arbitrage.html">No-arbitrage</a>条件を課す</li>
+</ul>
+</div>
+</div>
+<h2>Properties</h2>
+<p>
+<img class="im" src="images/stock_price.jpg" alt="pict" height="200px">　
+<img class="im" src="images/american_option.jpg" alt="pict" height="200px">
+</p>
+<p>
+<a href="binomial_model.html#n_period">Europianオプションの議論</a>を元にすると、時点$n+1$における支払をヘッジするためにはDelta Hedgingをとる必要がある。Delta Hedgin Positionは次のように記述される。
+\begin{eqnarray}
+\Delta_n(w_1,w_2\cdots w_n) &=& \frac{V_{n+1}^{\textrm{EUR}}(w_1,w_2\cdots w_n,H)-V_{n+1}^{\textrm{EUR}}(w_1,w_2\cdots w_n,T)}{S_{n+1}(w_1,w_2\cdots w_n,H)- S_{n+1}(w_1,w_2\cdots w_n,T)}\\
+V_n^{\textrm{EUR}}(w_1,w_2\cdots w_n)&=& \frac{1}{1+r}\left(\tilde{p}V_{n+1}^{\textrm{EUR}}(w_1,w_2\cdots w_n,H) + \tilde{q}V_{n+1}^{\textrm{EUR}}(w_1,w_2\cdots w_n,T) \right)\\
+\end{eqnarray}
+where
+\begin{eqnarray}
+\tilde{p}=\frac{1+r-d}{u-d},\quad  \tilde{q}=\frac{u-1-r}{u-d}
+\end{eqnarray}
+仮に時点$n$において$g(S_n)>V_n^{\textrm{EUR}}$とする。時点$n$での権利行使に対してはEuropianオプションのDelta Hedge$V_n^{\textrm{EUR}}$ではpay-offに満たず、$g(S_n)$のpositionが必要になる。
+</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>S.E.Shreve,Stochastic Calculus for Finance I,Springer,2004.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

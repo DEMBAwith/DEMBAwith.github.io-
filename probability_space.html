@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>標本・測度・確率空間</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">確率・統計学</a></li>
+<li class="crumb">標本・測度・確率空間</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>標本・測度・確率空間</h1>
+<h2>Definition</h2>
+<h3>標本空間(sample space)</h3>
+<p>起こりうる試行結果全ての集合を指す。代数が定義されていないため、「空間」と呼ばずに「標本集合」でもよいが、とにかく「標本空間」と大袈裟に呼ぶ。標本空間の元を<b>標本(sample)</b>あるいは<b>試行(experiment)</b>と呼ぶ</p>
+<p>
+■example
+<br>
+コイントスを3回やったとき、起こりうる結果列の標本空間$\Omega$は次のようになる(表を$H$(Head)、裏$T$(Tail)と表記)。
+\begin{eqnarray}
+\Omega &=& \{HHH,HHT,HTH,HTT,THH,THT,TTH,TTT\}
+\end{eqnarray}
+</p>
+<h3>$\sigma$加法的集合族</h3>
+<p>標本空間$\Omega$の部分集合からなる集合族$\boldsymbol{B}$が次の3条件を満たすとき、$\boldsymbol{B}$を<b>$\sigma$加法的集合族(完全加法族)</b>と呼ぶ。</p>
+<div class="squre">
+<ol class="olsq">
+<li>$\boldsymbol{B}\ni \Omega$</li>
+<li>$\boldsymbol{B}\ni A \Rightarrow \boldsymbol{B}\ni A^{c}$ for any elemnt $A$.</li>
+<li>$\boldsymbol{B}\ni A_i(i=1,2,\cdots) \Rightarrow \boldsymbol{B}\ni \bigcup_{i=1}^{\infty}A_i$</li>
+</ol>
+</div>
+<p>この文脈において、「完全」は「加算無限」と同義として書かれる。条件3が$\infty$でない場合は有限加法的集合族と呼ぶ。完全加法族について特に$A_k=A_{k+1}=\cdots$のとき、有限加法的集合族の条件を満たすため、次の命題が成立する</p>
+<div class="squre">
+<p class="psq">
+命題「$\boldsymbol{B}$は$\sigma$加法的集合族$\Rightarrow \boldsymbol{B}$は有限加法的集合族」
+</p>
+</div>
+<h3 class="subh3">補集合について</h3>
+<p class="subp">集合族の要素$A$に対し、$A^c$が次を満たすとき、$A^c$を$A$の<b>補集合</b>と呼ぶ。</p>
+<ul class="subul">
+<li>$A\cap A^c=\phi$</li>
+<li>$A\cup A^c =\Omega$</li>
+</ul>
+<p class="subp">標本空間$\Omega$の冪集合を$2^{\Omega}$とするとき、$\boldsymbol{B} \subset 2^{\Omega}$がby def.で成立する(必ずしも$\boldsymbol{B}= 2^{\Omega}$)でなくともよい。</p>
+
+<p>
+■example
+<br>
+上記$\Omega$上の$\sigma$加法族$\boldsymbol{B}$を次のように定義する。
+\begin{eqnarray}
+\boldsymbol{B}\equiv \left\{\phi,\Omega,(HHH,HHT),(HTH,HTT,THH,THT,TTH,TTT) \right\}
+\end{eqnarray}
+このとき、条件1はby defで満たされる。条件2も次の通り満たされる。
+\begin{eqnarray}
+\phi&\cap& \Omega = \phi\\
+\phi&\cup& \Omega = \Omega\\
+(HHH,HHT)&\cap& (HTH,HTT,THH,THT,TTH,TTT) = \phi\\
+(HHH,HHT)&\cup& (HTH,HTT,THH,THT,TTH,TTT) = \Omega
+\end{eqnarray}
+条件3についてはサンプルとして
+\begin{eqnarray}
+\boldsymbol{B}\ni A_1\equiv\phi,A_2\equiv(HHH,HHT),A_3\equiv(HTH,HTT,THH,THT,TTH,TTT)
+\end{eqnarray}
+に対して、
+\begin{eqnarray}
+\boldsymbol{B}\ni \bigcup_{i=1}^{3}A_i =(HTH,HTT,THH,THT,TTH,TTT)
+\end{eqnarray}
+が成立する。他の組み合わせについても同様に成立する。
+</p>
+<h3>可測空間</h3>
+<p>標本空間$\Omega$とその上の$\sigma$加法族$\boldsymbol{B}$が定義されるとき、これらの組み合わせ$(\Omega,\boldsymbol{B})$を<b>可測空間(measurable space)</b>と呼ぶ。</p>
+<h3>測度空間・測度</h3>
+<p>可測空間$(\Omega,\boldsymbol{B})$に対し、関数$\mu :\boldsymbol{B}\rightarrow \mathbb{R}$を定義する。$\mu$が次の2条件を満たすとき、$(\Omega,\boldsymbol{B},\mu)$を測度空間(measure space)、$\mu$を測度(measure)と呼ぶ。
+<ul>
+<li>$0 ≤ \mu(A) ≤ \infty (A \in F), \mu(\phi)=0 $</li>
+<li>$A1, A2, ··· , An, ··· \in F が Ai ∩ Aj = ∅ (i ̸= j)$</li>
+</ul>
+</p>
+<h3>確率空間、確率測度</h3>
+<p>測度空間$(\Omega,\boldsymbol{B},\mu)$が次の条件を満たすとき、$(\Omega,\boldsymbol{B},\mu)$を確率空間(probability space)、$\mu$を確率測度(probability measure)と呼ぶ。
+\begin{eqnarray}
+\mu :\boldsymbol{B}&\rightarrow& [0,1] \\
+P(\Omega)&=&1 \\
+P\left(\bigcup_i A_i \right) &=& \sum_i P\left(A_i \right)
+\end{eqnarray}
+確率空間$(\Omega,\boldsymbol{B},\mu)$において、ボレル集合族$\boldsymbol{B}$の元$A\in \boldsymbol{B}$を<b>事象(event)</b>と呼ぶ。特に$A$の元が試行1種類のみの場合<b>根元事象</b>と呼ぶ。
+</p>
+
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>小針晛宏,『確率・統計入門』,岩波書店,1973.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Markov過程</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">金融(Finance)</a></li>
+<li class="crumb">Markov過程</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>Markov過程</h1>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+<a href="adapted_stochastic.html">適合確率過程</a>$M_n(n=1,2\cdots N)$のうち、<a href="conditional_ex.html">条件付期待値</a>$\mathbb{E_n}$が次を満たすとき、確率過程$M_n(n=1,2\cdots N)$を<b>Markov過程</b>を呼ぶ。
+\begin{eqnarray}
+\forall_f \forall_{n:0,1\cdots N-1} \exists_g\left[ \mathbb{E}_n\left[f\left(X_{n+1}\right)\right]=g\left(X_{n}\right) \right]
+\end{eqnarray}
+ただし$f,g$は1変数実数関数とする。
+</p>
+</div>
+<h2>Properties</h2>
+<h3>基本的な性質</h3>
+<h2>2項モデルにおける例</h2>
+<h3>Stock Price</h3>
+<p>
+<a href="binomial_model.html">2項モデル</a>におけるstock price $S_n(w_1,\cdots w_n)$は次の式を満たす(<a href="conditional_ex.html">条件付き期待値</a>参照)。
+\begin{eqnarray}
+S_n(w_1,\cdots w_n) 
+&=& \frac{1}{1+r}\left(\tilde{p}S_{n+1}(S_n(w_1,\cdots w_n,H)+\tilde{q}S_{n+1}(S_n(w_1,\cdots w_n,T)\right)\\
+&=& \frac{1}{1+r}\sum_{w_{n+1}} \tilde{p}^{\# H}\tilde{q}^{\# T}S_{n+1}(w_1,\cdots w_n,w_{n+1})\\
+&=& \frac{1}{1+r}\tilde{E}_n[S_{n+1}] \\
+\Rightarrow \tilde{E}_n\left[\frac{S_{n+1}}{(1+r)^{n+1}}\right] &=& \frac{S_n}{(1+r)^n}
+\end{eqnarray}
+確率過程$S_{n}'\equiv \frac{S_n}{(1+r)^n}$に対しては次のように書ける。
+\begin{eqnarray}
+\tilde{E}_n\left[S_{n}'\right] &=& S_n'
+\end{eqnarray}
+従って任意の$n$に対して、
+actual確率測度$\mathbb{P}$を次のように書く。
+\begin{eqnarray}
+\mathbb{P}\{w_{n+1}=H \} =p,\quad \mathbb{P}\{w_{n+1}=T \} =q
+\end{eqnarray}
+actual確率測度$\mathbb{P}$下でのある関数$f(S_{n+1})$の条件付期待値は次のように書ける。
+\begin{eqnarray}
+\mathbb{E}_n\left[f\left(S_{n+1}\right)\right](w_1,\cdots w_n) &=& pf\left(S_{n+1}(w_1,\cdots w_n,H)\right)+qf\left(S_{n+1}(w_1,\cdots w_n,T)\right) \\
+&=& pf\left(uS_{n}(w_1,\cdots w_n)\right)+qf\left(dS_{n}(w_1,\cdots w_n)\right)
+\end{eqnarray}
+従って$g(x)\equiv pf(ux)+qf(dx)$とおけば次が成立し、$S_n$がMarkov過程であることが示せる。
+\begin{eqnarray}
+\mathbb{E}_n\left[f\left(S_{n+1}\right)\right](w_1,\cdots w_n) &=& g\left(S_{n}\right)
+\end{eqnarray}
+</p>
+<p class="subp">
+risk-neutral確率測度$\tilde{\mathbb{P}}$下において$S_n$は、<a href="martingales.html">Martingale性</a>とMarkov性を同時に持つ。
+</p>
+
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>S.E.Shreve,Stochastic Calculus for Finance I,Springer,2004.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<p class="mb10"></p>
+<footer>©2022 DEMBA</footer>
+</body>
+
+</html>

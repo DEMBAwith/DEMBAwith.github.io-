@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>ブラウザでWebページが表示されないときのトラブルシューティング</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">IT・情報システム</a></li>
+<li class="crumb">ブラウザでWebページが表示されないときのトラブルシューティング</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>ブラウザでWebページが表示されないときのトラブルシューティング</h1>
+<h2>目的・経緯</h2>
+<ol>
+<li>EC2やvirtual box上のlinuxにapacheをインストールする</li>
+<li>TCPポートの80と8080を許可する</li>
+<li>当該ホストのIPをブラウザのアドレスバーに入れる(ホストOSのブラウザからゲストOS上のapacheを見に行くなど)</li>
+<li>Webサーバからのレスポンスが無く、表示されない</li>
+<li>いろいろ試してみた</li>
+</ol>
+<h2>Ⅰ. httpdの起動</h2>
+<ul><li>Webサーバの起動</li></ul>
+<pre><code class="codeblock">
+systemctl start httpd
+</code></pre>
+<ul><li>Webサーバの状態表示</li></ul>
+<pre><code class="codeblock">
+systemctl status httpd
+</code></pre>
+<ul><ul class="inol"><li>httpサービス停止中のメッセージ</li></ul></ul>
+<pre><code class="codeblock">
+[root@ip-10-0-1-117 ~]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: <b class="bcode">inactive (dead)</b> since Mon 2022-03-21 03:02:58 UTC; 43s ago
+     Docs: man:httpd.service(8)
+  Process: 2876 ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND (code=exited, status=0/SUCCESS)
+ Main PID: 2876 (code=exited, status=0/SUCCESS)
+   Status: "Total requests: 0; Idle/Busy workers 100/0;Requests/sec: 0; Bytes served/sec:   0 B/sec"
+
+Mar 21 02:43:46 ip-10-0-1-117.ec2.internal systemd[1]: Starting The Apache HT...
+Mar 21 02:43:46 ip-10-0-1-117.ec2.internal systemd[1]: Started The Apache HTT...
+Mar 21 03:02:57 ip-10-0-1-117.ec2.internal systemd[1]: Stopping The Apache HT...
+Mar 21 03:02:58 ip-10-0-1-117.ec2.internal systemd[1]: Stopped The Apache HTT...
+Hint: Some lines were ellipsized, use -l to show in full.
+</code></pre>
+<ul><ul class="inol"><li>httpサービス起動中のメッセージ</li></ul></ul>
+<pre><code class="codeblock">
+[root@ip-10-0-1-117 ~]# systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: <b class="bcode">active (running)</b> since Mon 2022-03-21 03:07:46 UTC; 1s ago
+     Docs: man:httpd.service(8)
+ Main PID: 3412 (httpd)
+   Status: "Processing requests..."
+   CGroup: /system.slice/httpd.service
+           tq3412 /usr/sbin/httpd -DFOREGROUND
+           tq3413 /usr/sbin/httpd -DFOREGROUND
+           tq3414 /usr/sbin/httpd -DFOREGROUND
+           tq3415 /usr/sbin/httpd -DFOREGROUND
+           tq3416 /usr/sbin/httpd -DFOREGROUND
+           mq3417 /usr/sbin/httpd -DFOREGROUND
+
+Mar 21 03:07:46 ip-10-0-1-117.ec2.internal systemd[1]: Starting The Apache HTTP Server...
+Mar 21 03:07:46 ip-10-0-1-117.ec2.internal systemd[1]: Started The Apache HTTP Server.
+</code></pre>
+<ul><li>Webサーバの停止</li></ul>
+<pre><code class="codeblock">
+systemctl stop httpd
+</code></pre>
+<h2>Ⅱ. ファイアウォールの設定</h2>
+<ul><li>ファイアウォールの起動</li></ul>
+<pre><code class="codeblock">
+sudo firewall-cmd --permanent --zone=public --add-service=http
+</code></pre>
+<ul><li>ファイアウォールの停止</li></ul>
+<pre><code class="codeblock">
+sudo firewall-cmd --permanent --zone=public --remove-service=http
+</code></pre>
+<h2>Ⅲ. SELinuxのon/off</h2>
+<p class="subp">※Security-Enhanced Linuxの略</p>
+<ul><li>SELinuxの起動</li></ul>
+<pre><code class="codeblock">
+setenforce 1
+</code></pre>
+<ul><li>SELinuxの停止</li></ul>
+<pre><code class="codeblock">
+setenforce 0
+</code></pre>
+<h2>Ⅳ. パーミッションの設定</h2>
+<ul><li>htmlフォルダのパーミッション状態確認</li></ul>
+<pre><code class="codeblock">
+ls -l /var/www/
+</code></pre>
+<ul><ul class="inol"><li><code class="codeinline">ls -l</code>コマンドに対するメッセージ</li></ul></ul>
+<pre><code class="codeblock">
+[root@ip-10-0-1-117 ~]# ls -l /var/www/
+total 4
+drwxr-xr-x 2 root root    6 Dec 30 21:40 cgi-bin
+drwxr-xr<b class="bcode">-</b>x 4 root root 4096 Mar 13 12:55 html
+</code></pre>
+<ul><li>パーミッションの追加(change modeの略)</li></ul>
+<pre><code class="codeblock">
+chmod o+w /var/www/html
+</code></pre>
+<ul><ul class="inol"><li><code class="codeinline">chmod</code>コマンド後の状態確認</li></ul></ul>
+<pre><code class="codeblock">
+[root@ip-10-0-1-117 ~]# chmod o+w /var/www/html/
+[root@ip-10-0-1-117 ~]# ls -l /var/www/
+total 4
+drwxr-xr-x 2 root root    6 Dec 30 21:40 cgi-bin
+drwxr-xr<b class="bcode">w</b>x 4 root root 4096 Mar 13 12:55 html
+</code></pre>
+<h3>補足</h3>
+<p><img class="im" src="images/apache_permission.jpg" alt="img" height="100px"><br>
+othersにwrite権限を+している
+</p>
+
+<p class="mb10"></p>
+<p>以上</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>Qiita,<b>「Apache2.4で、アクセス制限の記述方法が変更されていた」</b>,"https://qiita.com/nwsoyogi/items/c8eb1fedef3c00c5fbac",閲覧日2021/06/08.</cite></li>
+<li><cite>Apache Lounge,<b>apache 2.4 failing to read files in /var/www/html</b>,"https://www.apachelounge.com/viewtopic.php?p=35963",閲覧日2021/06/08.</cite></li>
+<li><cite>Qiita,<b>「Apache に関する SELinux の設定 (CentOS)」</b>,"https://qiita.com/100/items/f7f43994568836b4a453",閲覧日2021/06/08.</cite></li>
+<li><cite>LinuCイージス,<b>「Linux - File Permission」</b>,"https://www.infraeye.com/study/linuxz26.html",閲覧日2021/06/08.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

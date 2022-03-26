@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>凹関数／凸関数</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">解析学(analysis)</a></li>
+<li class="crumb">凹関数／凸関数</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>凹関数(concave function)／凸関数(convex function)</h1>
+<h2>凹関数(concave function)</h2>
+<h3>Definition</h3>
+<div class="squre">
+<p class="psq">
+real function$f:\mathbb{R}\Rightarrow \mathbb{R}$が任意の区間$[x_1,x_2] (x_1 < x_2)$においてある実数$t (0\leq t \leq 1)$対して次を満たすとき、関数$f$を<b>凹関数(concave function)</b>と呼ぶ。
+\begin{eqnarray}
+f\left( tx_1+(1-t)x_2 \right) \geq tf(x_1) + (1-t)f(x_2)
+\end{eqnarray}
+</p>
+<p class="subp">連続性・微分可能性は不要なはず。</p>
+</div>
+<h3>直感的理解</h3>
+<p><img class="im" src="images/concave_function.jpg" alt="Binomial_Model" height="200px"></p>
+<p>real function$f$と$(x_1,f(x_1))$と$(x_2,f(x_2))$を結ぶ直線$g$を考える。ある実数$t (0\leq t \leq 1)$に対して$X\equiv tx_1+(1-t)x_2$をとると$x_1\leq X \leq x_2$が得られる($x_1 \leq x_2 \Rightarrow x_1 \leq X,X \leq x_2$。逆も然り)。$g(x)$は次のように得られる。</p>
+<p>
+\begin{eqnarray}
+g(x)=\frac{f(x_2)-f(x_1)}{x_2-x_1}x+\frac{x_2f(x_1)-x_1f(x_2)}{x_2-x_1}
+\end{eqnarray}
+$x=X$においては
+\begin{eqnarray}
+g(X)&=&\frac{f(x_2)-f(x_1)}{x_2-x_1}X+\frac{x_2f(x_1)-x_1f(x_2)}{x_2-x_1}\\
+&=&\frac{f(x_2)-f(x_1)}{x_2-x_1}\left(tx_1+(1-t)x_2\right)+\frac{x_2f(x_1)-x_1f(x_2)}{x_2-x_1}\\
+&=&\frac{1}{x_2-x_1}\left[tf(x_2)x_1-tf(x_1)x_1+f(x_2)x_2-tf(x_2)x_2+tf(x_1)x_2-f(x_2)x_1\right]\\
+&=&tf(x_1)+(1-t)f(x_2)
+\end{eqnarray}
+$f(X)\geq g(X)\Rightarrow f\left( tx_1+(1-t)x_2 \right) \geq tf(x_1) + (1-t)f(x_2)$を満たす、上図ような関数がconcave funcitionと言える。
+</p>
+<h2>凸関数(convex function)</h2>
+<h3>Definition</h3>
+<div class="squre">
+real function$f:\mathbb{R}\Rightarrow \mathbb{R}$が任意の区間$[x_1,x_2] (x_1 < x_2)$においてある実数$t (0\leq t \leq 1)$対して次を満たすとき、<br>
+関数$f$を<b>凸関数(convex function)</b>と呼ぶ。
+\begin{eqnarray}
+f\left( tx_1+(1-t)x_2 \right) \leq tf(x_1) + (1-t)f(x_2)
+\end{eqnarray}
+</div>
+<h3>直感的理解</h3>
+<p><img class="im" src="images/convex_function.jpg" alt="Binomial_Model" height="200px"></p>
+<p>
+concave fucntionと同様に直線$g(x)$を定義し、上図のように次式が満たされているときにconvex functionと言える。
+\begin{eqnarray}
+f(X)\leq g(X)\Rightarrow f\left( tx_1+(1-t)x_2 \right) \leq tf(x_1) + (1-t)f(x_2)
+\end{eqnarray}
+</p>
+<h3>性質</h3>
+<p>
+$f(x)$がconvex fucntionのとき
+\begin{eqnarray}
+\frac{d^2f}{dx^2}>0 \quad \text{for any }x
+\end{eqnarray}
+</p>
+<p class="subp">証明は略</p>
+
+
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓フッタ―------------------------------->
+<p class="mb10"></p>
+<footer>©2022 DEMBA</footer>
+</body>
+
+</html>

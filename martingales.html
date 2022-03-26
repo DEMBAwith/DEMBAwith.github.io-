@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Martingale過程</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">金融(Finance)</a></li>
+<li class="crumb">Martingale過程</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>Martingale過程</h1>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+<a href="adapted_stochastic.html">適合確率過程</a>$M_n(n=1,2\cdots N)$の確率測度$\mu$上の<a href="conditional_ex.html">条件付期待値</a>$\mathbb{E_n}$が次を満たすとき、その性質を<b>Martingale</b>を呼ぶ。
+\begin{eqnarray}
+M_n=\mathbb{E}_n[M_{n+1}] \quad \textrm{for } n=0,1\cdots N-1 \label{martingale}
+\end{eqnarray}
+</p>
+<p class="subp">
+※次を満たすときは<b>submartingale</b>と呼ぶ。
+\begin{eqnarray}
+M_n \leq \mathbb{E}_n[M_{n+1}] \quad \textrm{for } n=0,1\cdots N-1
+\end{eqnarray}
+※次を満たすときは<b>supermartingale</b>と呼ぶ。
+\begin{eqnarray}
+M_n \geq \mathbb{E}_n[M_{n+1}] \quad \textrm{for } n=0,1\cdots N-1
+\end{eqnarray}
+</p>
+</div>
+<h2>Properties</h2>
+<h3>基本的な性質</h3>
+<p>
+■multistep-ahead<br>
+eq.($\ref{martingale}$)両辺の条件付期待値($n-1$回目以降)をとる
+\begin{eqnarray}
+\mathbb{E}_{n-1}[M_n]=\mathbb{E}_{n-1}\left[\mathbb{E}_n[M_{n+1}]\right]
+\end{eqnarray}
+eq.($\ref{martingale}$)と条件付期待値の性質"<a href="conditional_ex.html#iterated_condition">iterated condition</a>"より次が得られる。
+\begin{eqnarray}
+M_{n-1}=\mathbb{E}_{n-1}[M_{n+1}]
+\end{eqnarray}
+この操作を繰り返すと任意の$m(0\leq m \leq n)$に対して次が得られる。
+\begin{eqnarray}
+M_{m}&=&\mathbb{E}_{m}[M_{n+1}]
+\end{eqnarray}
+特に$m=0$に対しては次のように書ける。
+\begin{eqnarray}
+M_{0}&=&\mathbb{E}[M_1]=\mathbb{E}[M_2]\cdots =\mathbb{E}[M_N]
+\end{eqnarray}
+</p>
+<h2>2項モデルのプライシングにおける性質</h2>
+<p>
+<a href="binomial_model.html">2項モデル</a>における議論により、有価証券価額$S_n$およびオプション価額$V_n$がmartingaleであることが導出できる。<br>
+■有価証券価額$S_n(w_1,w_2\cdots w_n)$
+\begin{eqnarray}
+S_n(w_1,\cdots w_n) &=& \frac{1}{1+r}\sum_{w_{n+1}} \tilde{p}^{\# H}\tilde{q}^{\# T}S_{n+1}(w_1,\cdots w_n,w_{n+1})\\
+&=& \frac{1}{1+r}\tilde{E}_n[S_{n+1}] \\
+\Rightarrow \frac{S_n}{(1+r)^n} &=&  \tilde{E}_n\left[\frac{S_{n+1}}{(1+r)^{n+1}}\right]
+\end{eqnarray}
+■オプション価額$V_n(w_1,w_2\cdots w_n)$
+\begin{eqnarray}
+V_n(w_1,\cdots w_n) &=& \frac{1}{1+r}\sum_{w_{n+1}} \tilde{p}^{\# H}\tilde{q}^{\# T}V_{n+1}(w_1,\cdots w_n,w_{n+1})\\
+&=& \frac{1}{1+r}\tilde{E}_n[V_{n+1}] \\
+\Rightarrow \frac{V_n}{(1+r)^n} &=&  \tilde{E}_n\left[\frac{V_{n+1}}{(1+r)^{n+1}}\right]
+\end{eqnarray}
+■確率変数$Y(w_1,w_2,\cdots w_N)$の条件付き期待値<br id="condition">
+確率変数$Y(w_1,w_2,\cdots w_N)$に対し、次の確率過程$Y_n(w_1,w_2,\cdots w_n)$を定義するとき、確率過程$Y_n$はMartingale過程である。
+\begin{eqnarray}
+Y_n \equiv \mathbb{E}_n[Y] \quad  (n=0,1,\cdots N)
+\end{eqnarray}
+証明は次の通り得られる。
+\begin{eqnarray}
+\mathbb{E}_n\left[Y_{n+{1}}\right] &=& \mathbb{E}_n\left[\mathbb{E}_{n+1}[Y]\right] \\
+&=&  \mathbb{E}_n\left[Y\right] \\
+&=& Y_n
+\end{eqnarray}
+</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>S.E.Shreve,Stochastic Calculus for Finance I,Springer,2004.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<p class="mb10"></p>
+<footer>©2022 DEMBA</footer>
+</body>
+
+</html>

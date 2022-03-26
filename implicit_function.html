@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>陰関数の存在定理</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">解析学(analysis)</a></li>
+<li class="crumb">陰関数の存在定理</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>陰関数の存在定理(Implicit function theorem)</h1>
+<h2>Theorem</h2>
+<div class="squre">
+<p class="psq">
+2変数実数関数$F(x,y)$が点$(a,b)$を含むある領域で連続・微分可能であり$F(a,b)=0,F_y(x,y)\neq 0$ならば次が成立する。$x=a$の近傍で次を満たす1価連続・微分可能関数$f(x)$がただ1つ定まる。
+<ul>
+<li>$F(x,f(x))=0$</li>
+<li>$b=f(a)$</li>
+<li>$\frac{dy}{dx}=-\frac{F_x(x,y)}{F_y(x,y)}$</li>
+</ul>
+</p>
+</div>
+<h2>Proof</h2>
+<p>
+</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>占部実 佐々木右左,『微分・積分教科書』,共立出版,1965.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

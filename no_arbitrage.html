@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>No-arbitrage</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="binomial_model.html">Binomial Model</a></li>
+<li class="crumb">No-arbitrage</li>
+</ol>
+</nav>
+<!------------------------ここまでパンくず------------------------->
+
+
+<h1>No-arbitrage</h1>
+<p>
+「裁定取引は発生しない」という金融工学モデル上の大前提の一つ。次のような要請と解釈ができる。
+</p>
+<ul>
+<li>risk-free-rateを$r$に対し、$r$を超えるリターンをno riskで得ることはできない</li>
+<li>no riskで無から有を生み出すことはできない</li>
+<li>必ず儲かるような取引は発生しない</li>
+</ul>
+<h2>Binomial Model</h2>
+<p>
+<a href="binomial_model.html">Binomial Model</a>においては次の式を要請する。
+\begin{eqnarray}
+    0 < d < 1+r < u
+\end{eqnarray}
+次の3式に分解して、それぞれの要請について理性的に考察する。
+\begin{eqnarray}
+    0 &<& d \\
+    d &<& 1+r \\
+    1+r &<& u
+\end{eqnarray}
+</p>
+<h3>$0< d$について(stock price下限の要請)</h3>
+<p>
+Binomial Modelにおいて、時点$n(=0,1,2\cdots N)$におけるstock price $S_n$は次を満たす。
+\begin{eqnarray}
+S_{n+1}(H) &=& uS_n \\
+S_{n+1}(T) &=& dS_n
+\end{eqnarray}
+stock priceに対し、stock price下限$S_n>0$ for any $n$を要請する。※no-arbitrage要請ではない。
+\begin{eqnarray}
+S_{n+1}(T) = dS_n &>& 0 \\
+    \Rightarrow d &>& 0
+\end{eqnarray}
+
+</p>
+<h3>$d< 1+r$について(No-arbitrageの要請)</h3>
+<p>
+次のような取引を考える。時点$n=0$における資金は$X_0=0$とする。
+</p>
+<ol>
+<li>money marketから資金$x$を借りる</li>
+<li>借りた資金分、株式$S$を購入する。数は$\Delta = \frac{x}{S_0}$ shares of stockとする。</li>
+<li>時間が$1$進む。stock price $S_0 \rightarrow S_1=j_1 S_0$、借金は$(1+r)$倍される。</li>
+<li>株式を現金化して、借金を返済する</li>
+</ol>
+<table>
+<tr>
+    <th></th>
+    <th>$n=0$の直前</th>
+    <th>イベント1</th>
+    <th>イベント2</th>
+    <th>イベント3</th>
+    <th>イベント4</th>
+</tr>
+<tr>
+    <td>資金$X$</td>
+    <td>$0$</td>
+    <td>$x$</td>
+    <td>$0$</td>
+    <td>$0$</td>
+    <td>$j_1 S_0 \Delta - x(1+r)$</td>
+</tr>
+<tr>
+    <td>株式$\Sigma$</td>
+    <td>$0$</td>
+    <td>$0$</td>
+    <td>$S_0 \Delta$</td>
+    <td>$j_1 S_0 \Delta$</td>
+    <td>$0$</td>
+</tr>
+<tr>
+    <td>money marketへの借金</td>
+    <td>$0$</td>
+    <td>$x$</td>
+    <td>$x$</td>
+    <td>$x(1+r)$</td>
+    <td>$0$</td>
+</tr>
+</table>
+<p>
+最終的な資金$X_1$は次のように得られる。
+\begin{eqnarray}
+    X_1 &=& j_1 S_0 \Delta - x(1+r) \\
+        &=& (j_1 -1-r)x
+\end{eqnarray}
+$j_1=u \textrm{ or } d (d< u)$ につき、$X_1$の最小値は$(d -1-r)x$。つまり事象によらず(no riskで)$(d -1-r)x$を得る。No-arbitrageを次の通り要請する。
+\begin{eqnarray}
+        (d -1-r)x &<& 0 \\
+    \Rightarrow d &<& 1+r
+\end{eqnarray}
+</p>
+<h3>$1+r< u$について(No-arbitrageの要請)</h3>
+<p>
+次のような取引を考える。時点$n=0$におけるshares of stockは$\Delta$とする。
+</p>
+<ol>
+<li>shares of stock $\Delta$を全て売却する</li>
+<li>売却資金を全てmoney marketに投資する</li>
+<li>時間が$1$進む。stock price $S_0 \rightarrow S_1=j_1 S_0$、借金は$(1+r)$倍される。</li>
+<li>shares of stock $\Delta$を買い戻す</li>
+</ol>
+<table>
+<tr>
+    <th></th>
+    <th>$n=0$の直前</th>
+    <th>イベント1</th>
+    <th>イベント2</th>
+    <th>イベント3</th>
+    <th>イベント4</th>
+</tr>
+<tr>
+        <td>資金$X$</td>
+        <td>$0$</td>
+        <td>$S_0 \Delta$</td>
+        <td>$0$</td>
+        <td>$0$</td>
+        <td>$0$</td>
+    </tr>
+    <tr>
+        <td>株式$\Sigma$</td>
+        <td>$S_0 \Delta$</td>
+        <td>$0$</td>
+        <td>$0$</td>
+        <td>$0$</td>
+        <td>$\frac{S_0 \Delta(1+r)}{S_1} S_1$</td>
+    </tr>
+<tr>
+    <td>money marketへの投資</td>
+    <td>$0$</td>
+    <td>$0$</td>
+    <td>$S_0 \Delta$</td>
+    <td>$S_0 \Delta(1+r)$</td>
+    <td>$0$</td>
+</tr>
+</table>
+<p>
+最終的な株式は次のように得られる。
+\begin{eqnarray}
+    \Sigma_1 &=&\frac{S_0 \Delta(1+r)}{S_1} S_1\\
+\end{eqnarray}
+</p>
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<p class="mb10"></p>
+<footer>©2022 DEMBA</footer>
+</body>
+
+</html>

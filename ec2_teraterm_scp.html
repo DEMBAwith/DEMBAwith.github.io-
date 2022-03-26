@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>TeratermのSCPでEC2上のApacheにファイル転送</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">IT・情報システム</a></li>
+<li class="crumb">TeratermのSCPでEC2上のApacheにファイル転送</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>TeratermのSCPでEC2上のApacheにファイル転送</h1>
+<h2>目的・経緯</h2>
+<ul>
+<li>EC2上のWebサーバ立てたのでHTMLファイルを載せたい</li>
+<li>TeratermでSCPファイル転送すればよいのでは</li>
+<li>どうやらそのままの設定では転送できない</li>
+</ul>
+<h2>操作手順</h2>
+<p>
+1. TeratermからSSHでEC2にログインする<br>
+2. root権限に切り替える<br>
+</p>
+<pre>
+<code class="codeblock">
+sudo su -
+</code></pre>
+<p>
+3. Teratermメニューバーの「ファイル」から"SSH SCP"を選択<br>
+<img class="im" src="images/teraterm_scp.jpg" alt="img" height="300px"><br>
+4. 上側(send)の"From"にローカル側のファイルディレクトリを記入。今回は<code class="codeinline">hp.zip</code>というファイルを転送。To"にサーバ側のファイルディレクトリを記入。sendを選択<br>
+<img class="im" src="images/teraterm_scp_2.jpg" alt="img" height="180px"><br>
+5. "Premission denied"が出るときは<code class="codeinline">chmod</code><a href="apache_browsing.html">コマンド</a>で当該フォルダのパーミッションを変更。(Othersにwrite権限付与)<br>
+<img class="im" src="images/teraterm_scp_3.jpg" alt="img" height="150px"><br>
+6. <code class="codeinline">ls -l</code>コマンドで転送できたかを確認
+</p>
+<pre><code class="codeblock">
+[root@ip-10-0-1-117 ~]# ls -l /var/www/html
+-rw-r--r-- 1 ec2-user ec2-user 2990961 Mar 21 07:10 <b class="bcode">hp.zip</b>
+</code></pre>
+<p>
+7. ついでにzipを解凍
+</p>    
+<pre><code class="codeblock">
+umzip /var/www/html/hp.zip
+</code></pre>
+    
+
+<p class="mb10"></p>
+<p>以上</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>Qiita,<b>「【scp】Tera Termのssh scpでLinuxサーバからローカルにファイルをコピーする」</b>,"https://qiita.com/kevichown/items/01acb14c12a26f4a600d",閲覧日2022/02/18.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

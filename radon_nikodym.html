@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Radon-Nikodym微分</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">金融(Finance)</a></li>
+<li class="crumb">Radon-Nikodym微分</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>Radon-Nikodym微分(Radon-Nikodym Derivative)</h1>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+<a href="probability_space.html">可測空間</a>$(\Omega,\boldsymbol{B})$において2つの測度$\mu,\nu$が定義できるとき、次の$Z$を<b>Radon-Nikodym微分</b>を呼ぶ。
+\begin{eqnarray}
+Z(w)=\frac{\nu (w)}{\mu (w)} \textrm{ for some } w\in \Omega
+\end{eqnarray}
+</p>
+<p class="subp">
+<b>Radon-Nikodym theorem</b>により、$\mu$と$\nu$が絶対連続であるときにRadon-Nikodym微分の存在と次の式が導出されるが、ここでは省略する。
+\begin{eqnarray}
+\nu(A) = \int_{A\in \Omega} \frac{d\nu}{d\mu} d\nu
+\end{eqnarray}
+</p>
+<p class="psq">
+次の通り定義する確率過程$Z_n(w_1,w_2\cdots w_n)$を<b>Radon-Nikodym微分過程</b>と呼ぶ。(一般的ではなさそうなので造語に近い)
+\begin{eqnarray}
+Z_n \equiv \mathbb{E}_n[Z] \quad  (n=0,1,\cdots N)
+\end{eqnarray}
+$Z_n$はMartingale過程となる。導出は<a href="martingales.html#condition">Martingale過程</a>参照。
+</p>
+</div>
+<h2>2項モデルにおける性質</h2>
+<p>
+actual測度を$\mathbb{P}$、risk-neutral測度を$\tilde{\mathbb{P}}$と書き、Radon-Nikodym微分を次のように定義する。
+\begin{eqnarray}
+Z(w_1,w_2,\cdots w_N)\equiv \frac{\tilde{\mathbb{P}}(w_1,w_2,\cdots w_N)}{\mathbb{P}(w_1,w_2,\cdots w_N)}
+\end{eqnarray}
+ただし$\tilde{\mathbb{P}}(w_1,w_2,\cdots w_N)>0,\mathbb{P}(w_1,w_2,\cdots w_N)>0$ for any $w_1\cdots w_N$とする。
+</p>
+<h3>条件無し期待値</h3>
+<p>
+■$Z$の期待値<br>
+\begin{eqnarray}
+\mathbb{E}[Z]&=&\sum_{w\in \Omega}\mathbb{P}(w)Z(w)\\
+&=&\sum_{w\in \Omega}\mathbb{P}(w)\frac{\tilde{\mathbb{P}}(w)}{\mathbb{P}(w)} \\
+&=&\sum_{w\in \Omega}\tilde{\mathbb{P}}(w) =1
+\end{eqnarray}
+■risk-neutral測度$\tilde{\mathbb{P}}$下；確率変数の期待値<br>
+確率変数$Y(w_1,w_2,\cdots w_N)$に対して、次のようにactual測度$\mathbb{P}$下の期待値に切り替えることができる。
+\begin{eqnarray}
+\tilde{\mathbb{E}}[Y] &=& \sum_{w\in \Omega}\tilde{\mathbb{P}}(w)Y(w)\\
+&=& \sum_{w\in \Omega}\mathbb{P}(w)\frac{\tilde{\mathbb{P}}(w)}{\mathbb{P}(w)}Y(w) \\
+&=& \sum_{w\in \Omega}\mathbb{P}(w)Z(w)Y(w)\\
+&=& \mathbb{E}[ZY]
+\end{eqnarray}
+■risk-neutral測度$\tilde{\mathbb{P}}$下；$n$回目までのコイントスにのみ依存する確率変数の期待値<br>
+$n$回目までのみ依存する確率変数$Y(w_1,w_2,\cdots w_n)$に対して、次のようにactual測度$\mathbb{P}$下の期待値に切り替えることができる。
+\begin{eqnarray}
+\tilde{\mathbb{E}}[Y] &=& \mathbb{E}\left[ZY\right] \\
+&=& \mathbb{E}\left[\mathbb{E}_n\left[ZY\right]\right]\\
+&=& \mathbb{E}\left[Y\mathbb{E}_n\left[Z\right]\right]\\
+&=& \mathbb{E}\left[YZ_n\right] \label{risk_cond}
+\end{eqnarray}
+■確率$p,q$による表現<br>
+次のような確率変数$Y$を考える。
+\begin{eqnarray}
+Y(w_1,\cdots w_n,w_{n+1},\cdots w_N)=
+\left\{
+\begin{array}{l}
+1 \quad\textrm{if}\ (w_1,\cdots w_n)=(\bar{w_1},\cdots \bar{w_n}) \\
+0 \quad\textrm{otherwise}
+\end{array}
+\right.
+\end{eqnarray}
+eq.($\ref{risk_cond}$)より次のように導出できる。
+\begin{eqnarray}
+\tilde{\mathbb{E}}[Y] &=& \mathbb{E}\left[YZ_n\right] \\
+\Rightarrow \sum_{w_1\cdots w_N}\tilde{p}^{\# H}\tilde{q}^{\# T}Y(w_1,\cdots w_N) &=& \sum_{w_1\cdots w_N}p^{\# H}q^{\# T}Y(w_1,\cdots w_N)Z(w_1,\cdots w_N)\\
+\Rightarrow \tilde{p}^{\# H(\bar{w}_1,\cdots \bar{w}_n)}\tilde{q}^{\# T(\bar{w}_1,\cdots \bar{w}_n)} &=& p^{\# H(\bar{w}_1,\cdots \bar{w}_n)}q^{\# T(\bar{w}_1,\cdots \bar{w}_n)} Z(\bar{w_1},\cdots\bar{w}_n)\\
+\Rightarrow Z(\bar{w_1},\cdots\bar{w}_n) &=& \left(\frac{\tilde{p}}{p}\right)^{\# H(\bar{w}_1,\cdots \bar{w}_n)}\left(\frac{\tilde{q}}{q}\right)^{\# T(\bar{w}_1,\cdots \bar{w}_n)} \label{zeq}
+\end{eqnarray}
+
+</p>
+<h3>条件付き期待値</h3>
+<p>
+■risk-neutral測度$\tilde{\mathbb{P}}$下；$n$回目までのコイントスにのみ依存する確率変数の条件付き期待値<br>
+$n\leq m$とするとeq.($ref{zeq}$)を使って、次のようにactual測度$\mathbb{P}$下の期待値に切り替えることができる。
+\begin{eqnarray}
+\tilde{\mathbb{E}}_n[Y](w_1,w_2,\cdots w_n)
+&=& \sum_{w_{n+1}\cdots w_N}Y(w_1,\cdots w_n,w_{n+1},\cdots w_m)\tilde{p}^{\# H}\tilde{q}^{\# T}\\
+&=& \frac{1}{Z_n(w_1\cdots w_n)}\mathbb{E}_n\left[YZ_m\right](w_1,w_2,\cdots w_n)
+\end{eqnarray}
+</p>
+<p class="subp">時間がかかるので省略</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>S.E.Shreve,Stochastic Calculus for Finance I,Springer,2004.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<p class="mb10"></p>
+<footer>©2022 DEMBA</footer>
+</body>
+
+</html>

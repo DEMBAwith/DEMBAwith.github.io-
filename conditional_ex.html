@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>条件付期待値</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">金融(Finance)</a></li>
+<li class="crumb">条件付期待値</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>条件付期待値(Conditional expectation)</h1>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+$N$回のコイントスそれぞれの結果を$w_i=H\textrm{ or }T(i=1,2\cdots N)$で表す。$n+1$回目以降の試行に対する確率変数$X(w_1,\cdots w_N)$の条件付き期待値を次の通り定義する。
+\begin{eqnarray}
+\mathbb{E}_n[X](w_1,\cdots w_n)\equiv \sum_{w_{n+1}\cdots w_N}p^{\# H(w_{n+1}\cdots w_N)}q^{\# T(w_{n+1}\cdots w_N)}X(w_1,\cdots w_n,w_{n+1},\cdots w_N)
+\end{eqnarray}
+ただし$\# H(w_{n+1}\cdots w_N)$は$n+1$回目以降の表(Head)の数、$\# T(w_{n+1}\cdots w_N)$は$n+1$回目以降の裏(Tail)の数とする。
+</p>
+<ul class="subul">
+<li>条件付期待値と区別するために、全試行に対する(条件付きでない)期待値はsubscript無しで単に$\mathbb{E}[X]$と書く。</li>
+<li>risk-neutral測度($\tilde{p},\tilde{q}$)とactual測度($p,q$)を明に区別するとき、risk-neutral測度に対しては$\tilde{\mathbb{E}}_n[X]$と書く。</li>
+</ul>
+</div>
+<h2>Properties</h2>
+<h3>基本的な性質</h3>
+<p class="subp">ほぼby def.なので証明は省略</p>
+<p>
+■$n=1$以降の条件期待値<br>
+$n=1$以降の条件期待値は、全試行に対する期待値と同一。
+\begin{eqnarray}
+\mathbb{E}_0[X] \equiv \mathbb{E}[X] 
+\end{eqnarray}
+■$n=N+1$以降の条件期待値<br>
+$n=N+1$以降の条件期待値は、そもそも$n=N+1$回目の試行は存在しないので確率変数がそのまま。
+\begin{eqnarray}
+\mathbb{E}_N[X] \equiv X 
+\end{eqnarray}
+■Linearity<br>
+$c_1,c_2\in \mathbb{R}$と確率変数$X(w_1,\cdots w_N),Y(w_1,\cdots w_N)$に対して次が成立する。
+\begin{eqnarray}
+\mathbb{E}_n[c_1X+ c_2Y] = c_1E_n[X] + c_2E_n[Y]
+\end{eqnarray}
+■Factoring out<br>
+確率変数$X$の変数依存が$X(w_1,\cdots w_n)$であり、$n+1$回目以降のコイントスに依存しない場合は次が成立する。
+\begin{eqnarray}
+\mathbb{E}_n[X Y] = X\mathbb{E}_n[Y]
+\end{eqnarray}
+■Iterated condition<br id="iterated_condition">
+$0\leq n \leq m \leq N$に対して次が成立する。
+\begin{eqnarray}
+\mathbb{E}_n\left[\mathbb{E}_m[X](w_1,\cdots w_n,w_1{n+1} \cdots w_m)\right] = E_n[X](w_1,\cdots w_n)
+\end{eqnarray}
+■Jensen inequality<br>
+convex function$\phi(x)$に対して次が成立する。
+\begin{eqnarray}
+E_n\left[\phi(X)\right] \geq \phi\left[E_n[X] \right]
+\end{eqnarray}
+次の条件を満たすため、<a href="jensen_inequality.html">Jensen不等式</a>により導出できる。
+\begin{eqnarray}
+X(w_1,\cdots w_N)&\in& \mathbb{R}\\
+p,q&\in& \mathbb{R}\\
+\sum_{w_{n+1}\cdots w_N}p^{\# H(w_{n+1}\cdots w_N)}q^{\# T(w_{n+1}\cdots w_N)}&=&1\\
+p>0,q>0 &\quad& \textrm{ for risk-neutral/actual probability}
+\end{eqnarray}
+</p>
+<h3>2項モデルにおける性質</h3>
+<p>
+<a href="binomial_model.html">2項モデル</a>において、有価証券価額$S_n(w_1,\cdots w_n)$は次の式を満たす。
+\begin{eqnarray}
+S_{n+1}(w_1,\cdots w_n,H)&=&uS_n(w_1,\cdots w_n)\\
+S_{n+1}(w_1,\cdots w_n,T)&=&dS_n(w_1,\cdots w_n)\\
+\end{eqnarray}
+これらを使うと次のように$S_n$を書ける。
+\begin{eqnarray}
+S_n(w_1,\cdots w_n) &=& \frac{1}{1+r}\frac{(1+r)(u-d)}{u-d}S_n\\
+&=& \frac{1}{1+r}\frac{u+ur-ud+ud-d-dr}{u-d}S_n \\
+&=& \frac{1}{1+r}\left(\frac{1+r-d}{u-d}u+\frac{u-1-r}{u-d}d\right) S_n\\
+&=& \frac{1}{1+r}\left(\frac{1+r-d}{u-d}uS_n+\frac{u-1-r}{u-d}dS_n\right)\\
+&=& \frac{1}{1+r}\left(\frac{1+r-d}{u-d}S_{n+1}(H)+\frac{u-1-r}{u-d}S_{n+1}(T)\right)\\
+&=& \frac{1}{1+r}\left(\tilde{p}S_{n+1}(S_n(w_1,\cdots w_n,H)+\tilde{q}S_{n+1}(S_n(w_1,\cdots w_n,T)\right)
+\end{eqnarray}
+$\tilde{p},\tilde{q}$はrisk-neutral probabilityとし、次のように定義する(<a href="binomial_model.html">2項モデル</a>参照)。
+\begin{eqnarray}
+\tilde{p}\equiv \frac{1+r-d}{u-d},\quad  \tilde{q}\equiv \frac{u-1-r}{u-d}
+\end{eqnarray}
+上述の$E_n[X]$を使って、有価証券価額$S_n$のrisk-neutral測度下での条件付期待値($n+1$回目以降の期待値)は次のように表現できる。
+\begin{eqnarray}
+S_n(w_1,\cdots w_n) &=& \frac{1}{1+r}\sum_{w_{n+1}} \tilde{p}^{\# H}\tilde{q}^{\# T}S_{n+1}(w_1,\cdots w_n,w_{n+1})\\
+&=& \frac{1}{1+r}\tilde{E}_n[S_{n+1}] 
+\end{eqnarray}
+
+</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>S.E.Shreve,Stochastic Calculus for Finance I,Springer,2004.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<p class="mb10"></p>
+<footer>©2022 DEMBA</footer>
+</body>
+
+</html>

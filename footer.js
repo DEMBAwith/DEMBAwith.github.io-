@@ -1,0 +1,1 @@
+document.write('<p class="mb10"></p><footer>©2022 DEMBA　　　　　　<b>免責事項</b>はこちら<a href="index.html#menseki">■</a></footer>');

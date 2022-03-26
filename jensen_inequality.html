@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Jensenの不等式</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script type="text/javascript"
+src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" }},
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    },
+    "HTML-CSS": { matchFontHeight: false },
+    displayAlign: "left",
+    displayIndent: "2em"
+    });
+</script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">解析学(analysis)</a></li>
+<li class="crumb">Jensenの不等式</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>Jensenの不等式</h1>
+<h2>Theorem</h2>
+<div class="squre">
+  <p class="psq">
+<a href="convex_concave.html">convex real function</a>$f:\mathbb{R}\Rightarrow \mathbb{R}$と次の$x_i,\lambda_i$を定義する。
+</p>
+<ul class="ulsq">
+<li>$x_i \ni \mathbb{R} (i=1,2\cdots n)$ </li>
+<li>$\lambda_{i}\ni \mathbb{R} (i=1,2\cdots n)$ such that $\lambda_i >0 (\textrm{for any }i)$ and $\sum^n_{i=1}\lambda_i=1$</li>
+</ul>
+<p class="psq">
+この時、次の式が成立する。
+\begin{eqnarray}
+\sum^{n}_{i=1}\lambda_i f(x_i) \geq f\left(\sum^{n}_{i=1}\lambda_ix_i \right)
+\end{eqnarray}
+</p>
+</div>
+<h2>Proof</h2>
+<p>
+$X\equiv \sum^{n}_{i=1}\lambda_ix_i$とおく。点$(X,f(X))$におけるconvex real function$f$の接線$g(x)$は次のように得られる。
+\begin{eqnarray}
+g(x)=f'(X)(x-X)+f(X)
+\end{eqnarray}
+$f$が凸関数なので次が成立する。
+\begin{eqnarray}
+f(x) &\geq& g(x) \quad \textrm{for any }x \\
+\Rightarrow f(x) &\geq& f'(X)(x-X)+f(X) \label{convex}
+\end{eqnarray}
+eq.(\ref{convex})に$x=x_i(i=1,2\cdots n)$を代入し、それぞれ$\lambda_i\geq 0$を掛ける。
+\begin{eqnarray}
+\lambda_if(x_i) &\geq& f'(X)\lambda_i(x_i-X)+f(X)\lambda_i
+\end{eqnarray}
+両辺を$i=1,2\cdots n$まで足す。
+\begin{eqnarray}
+\sum^{n}_{i=1}\lambda_if(x_i) &\geq& f'(X)\sum^{n}_{i=1}\lambda_i(x_i-X)+f(X)\sum^{n}_{i=1}\lambda_i \\
+ &\quad& = f'(X)\left[ \sum^{n}_{i=1}\lambda_ix_i- X\sum^{n}_{i=1}\lambda_i \right]+f(X)\sum^{n}_{i=1}\lambda_i \\
+ &\quad& = f'(X)\left[ \sum^{n}_{i=1}\lambda_ix_i- X\right]+f(X) \\
+ &\quad& = f\left(\sum^{n}_{i=1}\lambda_ix_i\right)
+\end{eqnarray}
+以上より、題意は満たされる。
+</p>
+
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>学びTimes,"イェンゼンの不等式の３通りの証明",https://manabitimes.jp/math/600</cite></li>
+<li><cite>"第１章 関数の凹凸性と凸集合",http://web.econ.keio.ac.jp/staff/tose/cours/2007/utyag/conv00.pdf</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<p class="mb10"></p>
+<footer>©2022 DEMBA</footer>
+</body>
+
+</html>
