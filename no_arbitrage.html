@@ -5,22 +5,29 @@
 <title>No-arbitrage</title>
 <link rel="stylesheet" href="javascript.css">
 <meta charset="UTF-8">
-<script type="text/javascript"
-    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        processEscapes: true,
+        tags: 'ams',
+        macros: {
+          ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+          tcdegree: ['\\unicode{xb0}'],
+          tccelsius: ['\\unicode{x2103}'],
+          tcperthousand: ['\\unicode{x2030}'],
+          tcmu: ['\\unicode{x3bc}'],
+          tcohm: ['\\unicode{x3a9}']
+        }
+      },
+      chtml: {
+        matchFontHeight: false,
+        displayAlign: "left",
+        displayIndent: "2em"
+      }
+    };
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    TeX: { equationNumbers: { autoNumber: "AMS" }},
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    },
-    "HTML-CSS": { matchFontHeight: false },
-    displayAlign: "left",
-    displayIndent: "2em"
-    });
-</script>
-
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
  
 <body>
