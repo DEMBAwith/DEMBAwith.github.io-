@@ -26,8 +26,8 @@
       displayIndent: "2em"
     }
   };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
  
 <body>
@@ -48,12 +48,32 @@
 確率空間$(\Omega,\mathcal{F},\boldsymbol{P})$に対し、次の集合族$\{\mathcal{F}_n\}$を定義する。このとき$\{\mathcal{F}_n\}$をフィルトレーション、$(\Omega,\mathcal{F},\{\mathcal{F}_n\},\boldsymbol{P})$をフィルタ付き確率空間と呼ぶ。
 </p>
 <ul>
-<li>時刻が進むごとに試行するBernoulli列である</li>
+<li>系の対象とする試行は、時刻が進むごとに試行するBernoulli列とする</li>
 <li>時刻$n$における根元事象を$\omega_n$とする</li>
 <li>時刻$n$における標本空間を$\Omega_n$とする($\omega_1\omega_2\cdots\omega_n\in\Omega_n$)</li>
-<li>標本空間$\Omega_n$上の<a href="probability_space.html#power_set">冪集合</a>を$\mathcal{F}_n$</li>
+<li>標本空間$\Omega_n$上の<a href="probability_space.html#power_set">冪集合</a>を$\mathcal{F}_n\equiv 2^{\Omega_n}$とする</li>
 </ul>
 </div>
+<h2>Example</h2>
+<h3>コイントス</h3>
+<p>
+コイントスにおいて、根元事象は各$N$回の裏表(Head or Tail)。
+\begin{eqnarray}
+\omega_n=\textrm{H or T }(\textrm{for any }n=1,2,\cdots N) 
+\end{eqnarray}
+例えば$N=3$の場合、標本空間$\Omega$および時刻$n=1,2$における標本空間$\Omega_2,\Omega_1$は次のように書ける。
+\begin{eqnarray}
+\Omega_1&=&\left\{H,T\right\}\\
+\Omega_2&=&\left\{HH,HT,TH,TT\right\}\\
+\Omega&=&\left\{HHH,HHT,HTH,HTT,THH,THT,TTH,TTT\right\}
+\end{eqnarray}
+この場合、$\Omega$の冪集合$\mathcal{F}=2^{\Omega}$および$\Omega_n$の冪集合$\mathcal{F}_n=2^{\Omega_n}$は次のように書ける。
+\begin{eqnarray}
+\mathcal{F}_1&=&\left\{\phi,\{H\},\{T\},\Omega_1\right\} \\
+\mathcal{F}_2&=&\left\{\phi,\{HH\},\{HT\},\{TH\},\{TT\},\{HH,HT\},\{HH,TH\},\{HH,TT\},\{HT,TH\},\{HT,TT\},\{TH,TT\},\{HH,HT,TH\},\{HH,HT,TT\},\{HT,TH,TT\},\Omega_2\right\}\\
+\mathcal{F}&=&\left\{\phi,\{HHH\},\{HHT\},\{HTH\},\{HTT\},\{HHH,HHT\},\{HHH,HHT,HTH\},\cdots,\Omega\right\}
+\end{eqnarray}
+</p>
 <h2>Definition</h2>
 <div class="squre">
 <p class="psq">
