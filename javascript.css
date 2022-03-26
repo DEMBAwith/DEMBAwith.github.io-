@@ -93,6 +93,13 @@ h2.h2red{
   /*text-align: left;*/
   }
 
+h2.h2center{
+  color: #eb0000;/*文字色*/
+  padding: 0 0 0 1em;
+  text-align: center;
+}
+  
+
 code.codeinline{
   display: inline-block;
   padding: 0.1em 0.25em; /* 文字周りの余白 */
