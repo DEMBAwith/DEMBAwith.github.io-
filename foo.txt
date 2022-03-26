@@ -1,2 +1,9 @@
 This is test.
-These codes are not for product,
+These codes are not for product.
+It's just a practice.
+I'm practicing to user git and github.
+
+The goal is releasing my homepages.
+I'm not confindent to do such a operation.
+
+identification
