@@ -55,10 +55,10 @@
 このケースにおいては$HHH$を標本、$H$を根元事象と呼べる。
 </p>
 <h3>$\sigma$加法的集合族</h3>
-<p>標本空間$\Omega$の部分集合からなる集合族$\boldsymbol{B}$が次の3条件を満たすとき、$\boldsymbol{B}$を<b>$\sigma$加法的集合族(完全加法族)</b>と呼ぶ。</p>
+<p>ある集合$X$の部分集合族$\boldsymbol{B}$が次の3条件を満たすとき、$\boldsymbol{B}$を<b>$\sigma$加法的集合族(完全加法族)</b>と呼ぶ。</p>
 <div class="squre">
 <ol class="olsq">
-<li>$\boldsymbol{B}\ni \Omega$</li>
+<li>$\boldsymbol{B}\ni X$</li>
 <li>$\boldsymbol{B}\ni A \Rightarrow \boldsymbol{B}\ni A^{c}$ for any elemnt $A$.</li>
 <li>$\boldsymbol{B}\ni A_i(i=1,2,\cdots) \Rightarrow \boldsymbol{B}\ni \bigcup_{i=1}^{\infty}A_i$</li>
 </ol>
@@ -73,9 +73,9 @@
 <p class="subp">集合族の要素$A$に対し、$A^c$が次を満たすとき、$A^c$を$A$の<b>補集合</b>と呼ぶ。</p>
 <ul class="subul">
 <li>$A\cap A^c=\phi$</li>
-<li>$A\cup A^c =\Omega$</li>
+<li>$A\cup A^c =X$</li>
 </ul>
-<p class="subp" id="power_set">標本空間$\Omega$の冪集合を$2^{\Omega}$とするとき、$\boldsymbol{B} \subset 2^{\Omega}$がby def.で成立する(必ずしも$\boldsymbol{B}= 2^{\Omega}$)でなくともよい。</p>
+<p class="subp" id="power_set">集合$X$の冪集合を$2^{X}$とするとき、$\boldsymbol{B} \subset 2^{X}$がby def.で成立する(必ずしも$\boldsymbol{B}= 2^{X}$でなくともよい)。</p>
 
 <p>
 ■example
@@ -103,10 +103,11 @@
 </p>
 <h3>$\sigma$代数</h3>
 <p>
-標本空間$\Omega$の冪集合の元$\mathcal{A}\in2^{\Omega}$に対し、$\mathcal{A}\subset\boldsymbol{B}$を満たす最小の$\sigma$集合族$\boldsymbol{B}$を<b>$\mathcal{A}$の$\sigma$代数</b>と呼び、$\sigma\left[\mathcal{A}\right]$と書く。$\mathcal{A}$の$\sigma$代数に対して次が成立する。
+集合$X$の冪集合の元$\mathcal{A}\in2^{X}$に対し、$\mathcal{A}\subset\mathcal{F}$を満たす最小の$\sigma$集合族$\mathcal{F}$を<b>$\mathcal{A}$の$\sigma$代数</b>と呼び、$\sigma\left[\mathcal{A}\right]$と書く。$\mathcal{A}$の$\sigma$代数は次にように表せる。
 \begin{eqnarray}
-\sigma\left[\mathcal{A}\right]=\bigcap_{A\subset\mathcal{G},\mathcal{G}\in2^{\Omega},\mathcal{G}\textrm{ is }\sigma\textrm{集合族}}\mathcal{G}
+\mathcal{F}\equiv\sigma\left[\mathcal{A}\right]=\bigcap_{A\subset\mathcal{G},\mathcal{G}\in2^X,\mathcal{G}\textrm{ is }\sigma\textrm{集合族}}\mathcal{G}
 \end{eqnarray}
+上式が成立することを「<b>$\mathcal{A}$は$\mathcal{F}$-可測である</b>」とも表現する。
 </p>
 <h3>可測空間</h3>
 <p>標本空間$\Omega$とその上の$\sigma$加法族$\boldsymbol{B}$が定義されるとき、これらの組み合わせ$(\Omega,\boldsymbol{B})$を<b>可測空間(measurable space)</b>と呼ぶ。</p>
@@ -114,7 +115,7 @@
 <p>可測空間$(\Omega,\boldsymbol{B})$に対し、関数$\mu :\boldsymbol{B}\rightarrow \mathbb{R}$を定義する。$\mu$が次の2条件を満たすとき、$(\Omega,\boldsymbol{B},\mu)$を測度空間(measure space)、$\mu$を測度(measure)と呼ぶ。
 <ul>
 <li>$0 ≤ \mu(A) ≤ \infty (A \in F), \mu(\phi)=0 $</li>
-<li>$A1, A2, ··· , An, ··· \in F が Ai ∩ Aj = ∅ (i ̸= j)$</li>
+<li>$A1, A2, ··· , An, ··· \in F$ が $A_i \cap A_j = \phi (i\neq j)$</li>
 </ul>
 </p>
 <h3>確率空間、確率測度</h3>

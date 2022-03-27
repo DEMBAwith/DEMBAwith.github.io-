@@ -42,6 +42,7 @@
 <!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
 
 <h1>フィルトレーション(Filtration)・適合確率過程(Adapted Stochastic Process)</h1>
+<h2 class="h2center">執筆中</h2>
 <h2>Definition</h2>
 <div class="squre">
 <p class="psq">
@@ -51,7 +52,7 @@
 <li>系の対象とする試行は、時刻が進むごとに試行するBernoulli列とする</li>
 <li>時刻$n$における根元事象を$\omega_n$とする</li>
 <li>時刻$n$における標本空間を$\Omega_n$とする($\omega_1\omega_2\cdots\omega_n\in\Omega_n$)</li>
-<li>標本空間$\Omega_n$上の<a href="probability_space.html#power_set">冪集合</a>を$\mathcal{F}_n\equiv 2^{\Omega_n}$とする</li>
+<li>標本空間$\Omega_n$上の冪集合を$\mathcal{F}_n\equiv 2^{\Omega_n}$とする</li>
 </ul>
 </div>
 <h2>Example</h2>
@@ -74,10 +75,13 @@
 \mathcal{F}&=&\left\{\phi,\{HHH\},\{HHT\},\{HTH\},\{HTT\},\{HHH,HHT\},\{HHH,HHT,HTH\},\cdots,\Omega\right\}
 \end{eqnarray}
 </p>
+<p class="subp">
+フィルトレーションに関して記載している書籍は確認できていない。webで資料を探すと$\mathcal{F}_n\subseteq\mathcal{F}_{n+1}$という表現をしているものが多いが、上記の定義とは矛盾する。例えば$\mathcal{F}_{2}$は$\mathcal{F}_1$の要素を含まず、部分集合ではない。この<a href="http://lealgorithm.blogspot.com/2017/07/blog-post.html">サイト</a>のようにランダムビット$*$を使っているケースを見かけたが、実態は謎である。
+</p>
 <h2>Definition</h2>
 <div class="squre">
 <p class="psq">
-確率変数$M_n$が、<b>適合確率過程</b>と呼ぶ。
+時刻$N$までの確率過程を考える。任意の時刻$n$において、確率変数$M_n$がフィルトレーション$\mathcal{F}_n$に対して$\mathcal{F}_n$-可測であるとき、「<b>$\{M_n\}$は$\{\mathcal{F_n}\}$-適合である</b>」と表現し、$\{M_n\}$を<b>適合確率過程</b>と呼ぶ。
 </p>
 </div>
 <h2>Properties</h2>
