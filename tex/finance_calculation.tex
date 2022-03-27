@@ -1,0 +1,178 @@
+%%%%%%%%%%%%%%%%%プリアンブル%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=20truemm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{thm}{Def.}[section]
+\usepackage{fancyhdr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Calculation for finance}
+\author{DEMBA}
+\date{11th Feb. 2022}
+
+\begin{document}
+\pagestyle{fancy}
+ \rhead{}
+ \lhead{}
+ \renewcommand{\headrulewidth}{0pt}
+ \cfoot{\copyright 2022 DEMBA}
+ \rfoot{\thepage}
+ \renewcommand{\footrulewidth}{0.4pt}
+\maketitle
+
+\section{Binomial Model(2項モデル)}
+\subsection{N=1 の場合の考察}
+満期日$n=N(=1)$につき、pay-off(オプションの権利行使)が発生する。時刻$n=1$におけるオプション価額$V_1$は権利行使によるpay-offと同定できる。上述の通り、agentから見れば$K-S_1$の支払（$S_1-K$の受取）がpay-offであるが、ここでは具体的には記載せず単に$V$で表記する。agentが支払$V_2(w_1,w_2)$に相当する金額をヘッジするために、次の式を要請する。
+\begin{eqnarray}
+\Delta_0 S_1(H) + (1+r)\left(X_0 -\Delta_0 S_0 \right) = V_1(H) \label{1h}\\
+\Delta_0 S_1(T) + (1+r)\left(X_0 -\Delta_0 S_0 \right) = V_1(T) \label{1t}
+\end{eqnarray}
+2 variables $\Delta_0$、$X_0$に対する2つの拘束条件と考え、これらについて解く。\\
+$\textrm{eq.}(\ref{1h}) - \textrm{eq.}(\ref{1t})$により次式を得る。
+\begin{eqnarray}
+\Delta_0 S_1(H)-\Delta_0 S_1(T) &=& V_1(H)-V_1(T) \\
+\Rightarrow \Delta_0 &=& \frac{V_1(H)-V_1(T)}{S_1(H)-S_1(T)}
+\end{eqnarray}
+$\Delta_0$をeq.(\ref{1h})に代入。
+\begin{eqnarray}
+\Delta_0 \left\{S_1(H)-(1+r)S_0\right\} + (1+r)X_0 &=& V_1(H) \\
+X_0 &=& \frac{1}{1+r}\left[V_1(H) - \Delta_0 \left\{S_1(H)-(1+r)S_0\right\} \right]\\
+&=&\frac{1}{1+r}\left[V_1(H) - \frac{V_1(H)-V_1(T)}{S_1(H)-S_1(T)} \left\{S_1(H)-(1+r)S_0\right\} \right]\\
+&=&\frac{1}{1+r}\left[\frac{-S_1(T)+(1+r)S_0}{S_1(H)-S_1(T)}V_1(H)+ \frac{S_1(H)-(1+r)S_0}{S_1(H)-S_1(T)}V_1(T)\right]
+\end{eqnarray}
+$V_1(H)$と$V_1(T)$の係数をそれぞれ次のように解く。
+\begin{eqnarray}
+\frac{-S_1(T)+(1+r)S_0}{S_1(H)-S_1(T)}&=&\frac{-dS_0+(1+r)S_0}{uS_0-dS_0}\\
+&=&\frac{-d+1+r}{u-d} \equiv \tilde{p}
+\end{eqnarray}
+\begin{eqnarray}
+\frac{S_1(H)-(1+r)S_0}{S_1(H)-S_1(T)}&=&\frac{uS_0-(1+r)S_0}{uS_0-dS_0}\\
+&=&\frac{u-1-r}{u-d} \equiv \tilde{q}
+\end{eqnarray}
+以上より、次の通り$X_0$、$\Delta_0$が得られる。
+\begin{eqnarray}
+    X_0     &=& \frac{1}{1+r}\left( \tilde{p}S_1(H)+\tilde{q}S_1(T) \right) \\
+    \Delta_0&=& \frac{V_1(H)-V_1(T)}{S_1(H)-S_1(T)}
+\end{eqnarray}
+where
+\begin{eqnarray}
+\tilde{p}=\frac{1+r-d}{u-d},\quad  \tilde{q}=\frac{u-1-r}{u-d}
+\end{eqnarray}
+\hrulefill \hspace{5cm}
+
+\subsection{N=2 の場合の考察}
+時刻$n=2$の条件式
+\begin{eqnarray}
+    V_2(H,H) &=& \Delta_1(H) S_2(H,H) + (1+r)(V_1(H) - \Delta_1(H) S_1(H)) \\
+    V_2(H,T) &=& \Delta_1(H) S_2(H,T) + (1+r)(V_1(H) - \Delta_1(H) S_1(H)) \\
+    V_2(T,H) &=& \Delta_1(T) S_2(T,H) + (1+r)(V_1(T) - \Delta_1(T) S_1(T)) \label{2th}\\
+    V_2(T,T) &=& \Delta_1(T) S_2(T,T) + (1+r)(V_1(T) - \Delta_1(T) S_1(T)) \label{2tt}
+\end{eqnarray}
+時刻$n=1$の条件式
+\begin{eqnarray}
+V_1(H) &=& \Delta_0 S_1(H) + (1+r)\left(V_0 -\Delta_0 S_0 \right) \\
+V_1(T) &=& \Delta_0 S_1(T) + (1+r)\left(V_0 -\Delta_0 S_0 \right)
+\end{eqnarray}
+の6つの拘束条件上で、$\Delta_1(T)$、$\Delta_1(H)$、$X(H)$、$X(T)$、$V_0$、$\Delta_0$について解く。\\
+
+$X_0$、$\Delta_0$は$N=1$の場合と同様に解ける。
+\begin{eqnarray}
+    X_0     &=& \frac{1}{1+r}\left( \tilde{p}S_1(H)+\tilde{q}S_1(T) \right) \\
+    \Delta_0&=& \frac{V_1(H)-V_1(T)}{S_1(H)-S_1(T)}
+\end{eqnarray}
+where
+\begin{eqnarray}
+\tilde{p}=\frac{1+r-d}{u-d},\quad  \tilde{q}=\frac{u-1-r}{u-d}
+\end{eqnarray}
+次に
+eq.(\ref{2th})$-$eq.(\ref{2tt})を計算する。
+\begin{eqnarray}
+    V_2(T,H)-V_2(T,T) &=& \Delta_1(T) S_2(T,H)- \Delta_1(T) S_2(T,T)\\
+    \Rightarrow \Delta_1(T) &=& \frac{V_2(T,H)-V_2(T,T)}{ S_2(T,H)- S_2(T,T)} \label{delta1t}
+\end{eqnarray}
+eq.(\ref{2th})を$V_1(T)$について解く。
+\begin{eqnarray}
+V_2(T,H) &=& \Delta_1(T) S_2(T,H) + (1+r)(V_1(T) - \Delta_1(T) S_1(H)) \\
+\Rightarrow V_2(T,H)&=& \Delta_1(T)\left\{ S_2(T,H) -(1+r)S_1(H)\right\} + (1+r)V_1(T) \\
+\Rightarrow V_1(T)&=& \frac{1}{1+r}\left[V_2(T,H) - \Delta_1(T)\left\{ S_2(T,H) -(1+r)S_1(H)\right\} \right]
+\end{eqnarray}
+eq.(\ref{delta1t})、および$S_2(T,H)=uS_1(T)$、$S_2(T,T)=dS_1(T)$を代入する。
+\begin{eqnarray}
+V_1(T)&=& \frac{1}{1+r}\left[V_2(T,H) - \frac{V_2(T,H)-V_2(T,T)}{ S_2(T,H)- S_2(T,T)}\left\{ S_2(T,H) -(1+r)S_1(T)\right\} \right] \\
+&=& \frac{1}{1+r}\left[V_2(T,H) - \frac{V_2(T,H)-V_2(T,T)}{uS_1(T)- dS_1(T)}\left\{ uS_1(T) -(1+r)S_1(T)\right\} \right] \\
+&=& \frac{1}{1+r}\left[V_2(T,H) - \frac{V_2(T,H)-V_2(T,T)}{u-d}(u-1-r) \right] \\
+&=& \frac{1}{1+r}\left[\frac{u-d-(u-1-r)}{u-d}V_2(T,H) + \frac{u-1-r}{u-d}V_2(T,T) \right] \\
+&=& \frac{1}{1+r}\left(\tilde{p}V_2(T,H) + \tilde{q}V_2(T,T) \right)
+\end{eqnarray}
+以上と同様に、$\Delta_1(H)$、$V_1(H)$についても解ける。
+\begin{eqnarray}
+\Delta_1(H) &=& \frac{V_2(H,H)-V_2(H,T)}{ S_2(H,H)- S_2(H,T)} \\
+V_1(H)&=&  \frac{1}{1+r}\left(\tilde{p}V_2(H,H) + \tilde{q}V_2(H,T) \right)
+\end{eqnarray}
+\hrulefill \hspace{5cm}
+\subsection{$N$-periodの場合}
+\begin{eqnarray}
+V_{n+1}(w_1,w_2\cdots w_{n+1})=\Delta_{n}(w_1,w_2\cdots w_n)S_{n+1}(w_1,w_2\cdots w_{n+1})+(1+r)(V_{n}-\Delta_{n}S_n(w_1,w_2\cdots w_n)) \label{n}
+\end{eqnarray}
+を要請するとき、次を満たすことを示す。
+\begin{eqnarray}
+\Delta_n(w_1,w_2\cdots w_n) &=& \frac{V_{n+1}(w_1,w_2\cdots w_n,H)-V_{n+1}(w_1,w_2\cdots w_n,T)}{S_{n+1}(w_1,w_2\cdots w_n,H)- S_{n+1}(w_1,w_2\cdots w_n,T)}\\
+V_n(w_1,w_2\cdots w_n)&=& \frac{1}{1+r}\left(\tilde{p}V_{n+1}(w_1,w_2\cdots w_n,H) + \tilde{q}V_{n+1}(w_1,w_2\cdots w_n,T) \right)
+\end{eqnarray}
+where
+\begin{eqnarray}
+\tilde{p}=\frac{1+r-d}{u-d},\quad  \tilde{q}=\frac{u-1-r}{u-d}
+\end{eqnarray}
+eq.(\ref{n})について$W_{n+1}=H,T$の場合は次のようになる。
+\begin{displaymath}
+\left\{
+\begin{array}{l}
+V_{n+1}(w_1,w_2\cdots w_n,H)=\Delta_{n}(w_1,w_2\cdots w_n)S_{n+1}(w_1,w_2\cdots w_n,H)+(1+r)(V_{n}-\Delta_{n}S_n) \\
+V_{n+1}(w_1,w_2\cdots w_n,T)=\Delta_{n}(w_1,w_2\cdots w_n)S_{n+1}(w_1,w_2\cdots w_n,T)+(1+r)(V_{n}-\Delta_{n}S_n)
+\end{array}
+\right.
+\end{displaymath}
+\begin{eqnarray}
+\Rightarrow \Delta_n(w_1,w_2\cdots w_n) &=& \frac{V_{n+1}(w_1,w_2\cdots w_n,H)-V_{n+1}(w_1,w_2\cdots w_n,T)}{S_{n+1}(w_1,w_2\cdots w_n,H)- S_{n+1}(w_1,w_2\cdots w_n,T)}  \label{deltan}
+\end{eqnarray}
+eq.(\ref{n})を次の通り変形する。
+\begin{eqnarray}
+V_{n+1}(w_1,w_2\cdots w_{n+1})
+&=&\Delta_{n}(w_1,w_2\cdots w_n)S_{n+1}(w_1,w_2\cdots w_{n+1})+(1+r)V_{n}-(1+r)\Delta_{n}S_n \\
+&=&\Delta_{n}(w_1,w_2\cdots w_n)\left\{S_{n+1}(w_1,w_2\cdots w_{n+1})-(1+r)S_n\right\}+(1+r)V_{n} \\
+\Rightarrow (1+r)V_{n} &=& V_{n+1}(w_1,w_2\cdots w_{n+1}) \\
+&\quad& - \Delta_{n}(w_1,w_2\cdots w_n)\left\{S_{n+1}(w_1,w_2\cdots w_{n+1})-(1+r)S_n\right\}\\
+V_{n} &=& \frac{1}{1+r}\left[V_{n+1}(w_1,w_2\cdots w_{n+1})- \Delta_{n}\left\{S_{n+1}(w_1,w_2\cdots w_{n+1})-(1+r)S_n\right\}\right]
+\end{eqnarray}
+eq.(\ref{deltan})を代入する。
+\begin{eqnarray}
+V_{n} &=& \frac{1}{1+r}\\
+&\quad&\cdot\left[V_{n+1}(w_1,\cdots w_{n+1})- \frac{V_{n+1}(w_1,\cdots w_n,H)-V_{n+1}(w_1,\cdots w_n,T)}{S_{n+1}(w_1,\cdots w_n,H)- S_{n+1}(w_1\cdots w_n,T)}\left\{S_{n+1}(w_1,\cdots w_{n+1})-(1+r)S_n\right\}\right]\\
+&=& \frac{1}{1+r}\\
+&\quad&\cdot\left[V_{n+1}(w_1,\cdots w_{n+1})- \frac{V_{n+1}(w_1,\cdots w_n,H)-V_{n+1}(w_1,\cdots w_n,T)}{uS_{n}(w_1,\cdots w_n)- dS_{n}(w_1\cdots w_n)}\left\{j_{n+1}S_{n}(w_1,\cdots w_{n})-(1+r)S_n\right\}\right]\\
+&=& \frac{1}{1+r}\left[V_{n+1}(w_1,\cdots w_{n+1})- \frac{V_{n+1}(w_1,\cdots w_n,H)-V_{n+1}(w_1,\cdots w_n,T)}{u- d}\left(j_{n+1}-1-r\right)\right]
+\end{eqnarray}
+(i)$w_{n+1}=H$のとき
+\begin{eqnarray}
+V_{n}
+&=& \frac{1}{1+r}\left[V_{n+1}(w_1,\cdots w_n,H)- \frac{V_{n+1}(w_1,\cdots w_n,H)-V_{n+1}(w_1,\cdots w_n,T)}{u- d}\left(u-1-r\right)\right]\\
+&=& \frac{1}{1+r}\left[\left(1-\frac{u-1-r}{u-d}\right)V_{n+1}(w_1,\cdots w_n,H) + \frac{u-1-r}{u-d}V_{n+1}(w_1,\cdots w_n,T)\right]\\
+&=& \frac{1}{1+r}\left[\frac{1+r-d}{u-d}V_{n+1}(w_1,\cdots w_n,H) + \frac{u-1-r}{u-d}V_{n+1}(w_1,\cdots w_n,T)\right]\\
+&=& \frac{1}{1+r}\left[\tilde{p}V_{n+1}(w_1,\cdots w_n,H) + \tilde{q}V_{n+1}(w_1,\cdots w_n,T)\right]
+\end{eqnarray}
+(ii)$w_{n+1}=T$のとき
+\begin{eqnarray}
+V_{n}
+&=& \frac{1}{1+r}\left[V_{n+1}(w_1,\cdots w_n,T)- \frac{V_{n+1}(w_1,\cdots w_n,H)-V_{n+1}(w_1,\cdots w_n,T)}{u- d}\left(d-1-r\right)\right]\\
+&=& \frac{1}{1+r}\left[\frac{1+r-d}{u-d}V_{n+1}(w_1,\cdots w_n,H) + \left(1+\frac{d-1-r}{u-d}\right)V_{n+1}(w_1,\cdots w_n,T)\right]\\
+&=& \frac{1}{1+r}\left[\frac{1+r-d}{u-d}V_{n+1}(w_1,\cdots w_n,H) + \frac{u-1-r}{u-d}V_{n+1}(w_1,\cdots w_n,T)\right]\\
+&=& \frac{1}{1+r}\left[\tilde{p}V_{n+1}(w_1,\cdots w_n,H) + \tilde{q}V_{n+1}(w_1,\cdots w_n,T)\right]
+\end{eqnarray}
+以上より、題意た満たされる。
+\hrulefill \hspace{5cm}
+\end{document}

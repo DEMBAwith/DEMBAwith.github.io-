@@ -44,7 +44,7 @@
 <h1>標本・測度・確率空間</h1>
 <h2>Definition</h2>
 <h3>標本空間(sample space)</h3>
-<p>起こりうる試行結果全ての集合を指す。代数が定義されていないため、「空間」と呼ばずに「標本集合」でもよいが、とにかく「標本空間」と大袈裟に呼ぶ。標本空間の元を<b>標本(sample)</b>あるいは<b>試行(experiment)</b>と呼ぶ</p>
+<p>起こりうる試行結果全ての集合を指す。代数が定義されていないため、「空間」と呼ばずに標本集合でもよいが、ここでは標本空間と称する。標本空間の元を<b>標本(sample)</b>あるいは<b>試行(experiment)</b>と呼ぶ</p>
 <p>
 ■example
 <br>
@@ -52,6 +52,7 @@
 \begin{eqnarray}
 \Omega &=& \{HHH,HHT,HTH,HTT,THH,THT,TTH,TTT\}
 \end{eqnarray}
+このケースにおいては$HHH$を標本、$H$を根元事象と呼べる。
 </p>
 <h3>$\sigma$加法的集合族</h3>
 <p>標本空間$\Omega$の部分集合からなる集合族$\boldsymbol{B}$が次の3条件を満たすとき、$\boldsymbol{B}$を<b>$\sigma$加法的集合族(完全加法族)</b>と呼ぶ。</p>
@@ -79,7 +80,7 @@
 <p>
 ■example
 <br>
-上記$\Omega$上の$\sigma$加法族$\boldsymbol{B}$を次のように定義する。
+上記$\Omega$上の$\sigma$集合族$\boldsymbol{B}$を次のように定義する。
 \begin{eqnarray}
 \boldsymbol{B}\equiv \left\{\phi,\Omega,(HHH,HHT),(HTH,HTT,THH,THT,TTH,TTT) \right\}
 \end{eqnarray}
@@ -100,6 +101,13 @@
 \end{eqnarray}
 が成立する。他の組み合わせについても同様に成立する。
 </p>
+<h3>$\sigma$代数</h3>
+<p>
+標本空間$\Omega$の冪集合の元$\mathcal{A}\in2^{\Omega}$に対し、$\mathcal{A}\subset\boldsymbol{B}$を満たす最小の$\sigma$集合族$\boldsymbol{B}$を<b>$\mathcal{A}$の$\sigma$代数</b>と呼び、$\sigma\left[\mathcal{A}\right]$と書く。$\mathcal{A}$の$\sigma$代数に対して次が成立する。
+\begin{eqnarray}
+\sigma\left[\mathcal{A}\right]=\bigcap_{A\subset\mathcal{G},\mathcal{G}\in2^{\Omega},\mathcal{G}\textrm{ is }\sigma\textrm{集合族}}\mathcal{G}
+\end{eqnarray}
+</p>
 <h3>可測空間</h3>
 <p>標本空間$\Omega$とその上の$\sigma$加法族$\boldsymbol{B}$が定義されるとき、これらの組み合わせ$(\Omega,\boldsymbol{B})$を<b>可測空間(measurable space)</b>と呼ぶ。</p>
 <h3>測度空間・測度</h3>
@@ -117,6 +125,7 @@ P(\Omega)&=&1 \\
 P\left(\bigcup_i A_i \right) &=& \sum_i P\left(A_i \right)
 \end{eqnarray}
 確率空間$(\Omega,\boldsymbol{B},\mu)$において、ボレル集合族$\boldsymbol{B}$の元$A\in \boldsymbol{B}$を<b>事象(event)</b>と呼ぶ。特に$A$の元が試行1種類のみの場合<b>根元事象</b>と呼ぶ。
+<h3>確率変数</h3>
 </p>
 
 <!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
@@ -124,6 +133,7 @@ P\left(\bigcup_i A_i \right) &=& \sum_i P\left(A_i \right)
 <h2>References</h2>
 <ul>
 <li><cite>小針晛宏,『確率・統計入門』,岩波書店,1973.</cite></li>
+<li><cite>戸瀬信之 2005年度講義 確率論入門I,II,第1章離散時間確率過程,http://web.econ.keio.ac.jp/staff/tose/cours/2005/prob/dec08.pdf.</cite></li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
