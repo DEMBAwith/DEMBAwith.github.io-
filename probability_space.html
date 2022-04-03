@@ -36,12 +36,12 @@
 <ol>
 <li class="crumb"><a href="index.html">INDEX</a></li>
 <li class="crumb"><a href="">確率・統計学</a></li>
-<li class="crumb">標本・測度・確率空間</li>
+<li class="crumb">標本・測度・確率空間・確率変数</li>
 </ol>
 </nav>
 <!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
 
-<h1>標本・測度・確率空間</h1>
+<h1>標本・測度・確率空間・確率変数</h1>
 <h2>Definition</h2>
 <h3>標本空間(sample space)</h3>
 <p>起こりうる試行結果全ての集合を指す。代数が定義されていないため、「空間」と呼ばずに標本集合でもよいが、ここでは標本空間と称する。標本空間の元を<b>標本(sample)</b>あるいは<b>試行(experiment)</b>と呼ぶ</p>
@@ -127,6 +127,16 @@ P\left(\bigcup_i A_i \right) &=& \sum_i P\left(A_i \right)
 \end{eqnarray}
 確率空間$(\Omega,\boldsymbol{B},\mu)$において、ボレル集合族$\boldsymbol{B}$の元$A\in \boldsymbol{B}$を<b>事象(event)</b>と呼ぶ。特に$A$の元が試行1種類のみの場合<b>根元事象</b>と呼ぶ。
 <h3>確率変数</h3>
+<p>
+次の写像を確率変数と呼ぶ。
+\begin{eqnarray}
+X:(\Omega,\boldsymbol{B},\mu)\rightarrow (\mathbb{R},\mathcal{F},P)
+\end{eqnarray}
+$\mathbb{R}$：これも確率変数と言える。vector$\mathbb{R}^n$でもいい<br>
+$\mathcal{F}$：Borel集合族。$\mathbb{R}$の部分集合族。<br>
+$P$：確率分布。$P:\mathcal{F}\rightarrow \mathbb{R}$とする。<br>
+なお、確率変数によって生成される空間$(\mathbb{R},\mathcal{F},P)$も<b>確率空間</b>と呼ぶ慣例がある。
+</p>
 </p>
 
 <!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
