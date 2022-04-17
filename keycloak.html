@@ -122,6 +122,72 @@ rootディレクトリ(/)
 N. ユーザ画面でここまで開けばセットアップ完了<br>
 <img class="im" src="images/keycloak_1.jpg" alt="img" height="250px"><br>
 </p>
+<h2>トークン発行</h2>
+<p>
+クライアントからcurlでkeycloakサーバを叩いてトークンを持ってくる。どうもpowershellでうまくいかなかったが、コマンドプロンプトならできるっぽいので試してみる。今回はhttp用に80番ポートを開けているのでそこに投げ込む。
+</p>
+<pre><code class="codeblock">
+curl http://<hostname>:80/auth/realms/sample_service/protocol/openid-connect/token -d "grant_type=password&amp client_id=sample_application&amp client_secret=&ltclient secret&gt&amp username=sample_user&amp password=&lt password&gt &amp scope=openid"</b>
+</code></pre>
+<p>
+下図のようなレスポンスが返ってくる。<br>
+<img class="im" src="images/keycloak_4.jpg" alt="img" height="500px"><br>
+整理すると、このレスポンスは次のような構造をしたJSON形式である。
+</p>
+<pre><code class="codeblock">
+{
+  "access_token": "&ltaccess token&gt",
+  "expires_in": 300,
+  "refresh_expires_in": 1800,
+  "refresh_token": "&ltrefresh token&gt",
+  "token_type": "Bearer",
+  "id_token": "&ltid token&gt",
+  "not-before-policy": 0,
+  "session_state": "2aada62f-de72-4f10-b7ab-6113063c3cae",
+  "scope": "openid profile email"
+}    
+</code></pre>
+<p>
+上記key-valueのうちaccess_token、refresh_token、id_tokenは<a href="jwt.html">JWT形式</a>で表されている。例えばaccess_tokenをbase64urlデコードしてみると、次のように得られる。
+</p>
+<pre><code class="codeblock">
+{"alg":"RS256",
+ "typ" : "JWT",
+ "kid" : "1fGWRaL-lbB51evh2jqo00mj3ksECW(略)"
+}
+{"exp":1650209910,
+ "iat":1650209610,
+ "jti":"06eb26e0-cf(略)",
+ "iss":"http://IPアドレス/auth/realms/test_realm",
+ "aud":"account",
+ "sub":"a3bb0403-a980-4ad2-84(略)",
+ "typ":"Bearer",
+ "azp":"sample_application",
+ "session_state":"2aada62f-de72-4f10-b(略)",
+ "acr":"1",
+ "realm_access":{
+     "roles":[
+       "offline_access",
+      "uma_authorization"
+      ]
+      },
+"resource_access":{
+     "account":{
+         "roles":[
+            "manage-account",
+            "manage-account-links",
+            "view-profile"
+            ]
+          }
+      },
+"scope":"openid profile email",
+"email_verified":false,
+"preferred_username":"sample_user"
+}(`=仴麅᷒鼟ここから文字化け)
+</code></pre>
+<p>デコード前のデータ構造は次のようになっており、上記はheader,payload,signatureの３要素にさらに分けられる。</p>
+<pre><code class="codeblock">base64url(Header).base64url(Payload).base64url(Signature)</code></pre>
+<p class="subp">最後の文字化けエリアはsignatureの性質上残るものとどこかで読んだ気もするが、記憶が曖昧。</p>
 
 <p class="mb10"></p>
 <p>以上</p>
@@ -131,6 +197,8 @@ N. ユーザ画面でここまで開けばセットアップ完了<br>
 <ul>
 <li><cite>Qiita,<b>KeycloakをAWS上に構築してセキュリティ検証してみた</b>,"https://qiita.com/HiroyaEnd/items/8656583b31bc912eedb2",閲覧日2022/04/17.</cite></li>
 <li><cite>Hatena Blog,<b>-bash: mvn: command not foundについて</b>,"https://takahitonakashima.hatenablog.com/entry/2017/09/10/190137",閲覧日2022/04/17.</cite></li>
+<li><cite>ThinkIT,<b>Keycloakのインストールと構築例</b>,"https://thinkit.co.jp/article/17621",閲覧日2022/04/17.</cite></li>
+<li>Google Admin Toolbox,https://toolbox.googleapps.com/apps/encode_decode/?lang=ja.</li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
