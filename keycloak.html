@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>keycloak</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">IT・情報システム</a></li>
+<li class="crumb">keycloak</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>keycloak</h1>
+<h2>目的・経緯</h2>
+<ol>
+<li>自宅PCをRelying PartyにしてEC2上のKeycloakで遊びたい</li>
+<li>最終的にはこんな感じにしたい</li>
+<img class="im" src="images/keycloak_2.jpg" alt="img" height="220px"><br>
+<li>もしくはこんな感じにしたい</li>
+<img class="im" src="images/keycloak_3.jpg" alt="img" height="220px"><br>
+</ol>
+<h2>EC2セットアップ</h2>
+<p>
+セットアップ方法は別記事に記載する。以下はEC2のステータスを記載する
+</p>
+<table>
+<tr>
+<th>項目</th>
+<th>ステータス</th>
+</tr>
+<tr>
+<td>OS</td>
+<td>Amazon Linux2(64bit)</td>
+</tr>  
+<tr>
+<td>インスタンスタイプ</td>
+<td>t2.micro</td>
+</tr>
+<tr>
+<td>keycloakバージョン</td>
+<td>12.0.2</td>
+</tr>
+</table>
+<h2>keycloakのインストール</h2>
+<p>
+Linuxのデフォルトのディレクトリ構成は次の通り。
+</p>
+<pre>
+<code class="codeblock">
+rootディレクトリ(/) 
+ - bin
+ - boot
+ - dev
+ - etc
+ - home
+ - lib
+ - lib64
+ - local 
+ - media 
+ - mnt
+ - <b class="bcode">opt</b>
+ - proc
+ - root
+ - run
+ - sbin
+ - srv
+ - sys
+ - tmp
+ - usr
+ - var
+</code>
+</pre>
+<p>
+1. zipファイルのダウンロード<br>
+<code class="codeinline">wget https://github.com/keycloak/keycloak/releases/download/12.0.2/keycloak-12.0.2.zip</code>や<code class="codeinline">curl</code>でzipをダウンロードし、optフォルダに保存する。<br>
+2. zipの解凍<br>
+<code class="codeinline">unzip keycloak-12.0.2.zip</code><br>
+3. JDKのインストール<br>
+<code class="codeinline">yum -y install java-1.8.0-openjdk-devel</code><br>
+4. Maven用ディレクトリ作成<br>
+<code class="codeinline">mkdir /opt/maven</code><br>コマンドでoptフォルダ直下にmavenフォルダを作成する<br>
+5. Mavenのダウンロード<br>
+<code class="codeinline">curl https://archive.apache.org/dist/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz</code><br>
+6. Mavenの解凍<br>
+<code class="codeinline">tar zxv apache-maven-3.6.1-bin.tar.gz</code>で先のmavenフォルダに展開する<br>
+7. Mavenのパス設定<br>
+パスが通らなかったら<code class="codeinline">.bash_profile</code>ファイルを編集して、<code class="codeinline">PATH=$PATH./apache-maven-3.5.0/bin</code>にしてもいい。
+</p>
+
+<p>
+N. ユーザ画面でここまで開けばセットアップ完了<br>
+<img class="im" src="images/keycloak_1.jpg" alt="img" height="250px"><br>
+</p>
+
+<p class="mb10"></p>
+<p>以上</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>Qiita,<b>KeycloakをAWS上に構築してセキュリティ検証してみた</b>,"https://qiita.com/HiroyaEnd/items/8656583b31bc912eedb2",閲覧日2022/04/17.</cite></li>
+<li><cite>Hatena Blog,<b>-bash: mvn: command not foundについて</b>,"https://takahitonakashima.hatenablog.com/entry/2017/09/10/190137",閲覧日2022/04/17.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>

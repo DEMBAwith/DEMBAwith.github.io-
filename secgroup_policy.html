@@ -153,10 +153,12 @@ MathJax = {
 </table>
 <p>
 じゃあ「特定のリソースだけ権限を与えればいいじゃん」と考えたい。どうも「リソースレベルの権限をサポート」しているかどうかが問題らしい。例えば次のようになっている。
+</p>
 <ul>
 <li><code class="codeinline">ModifySecurityGroupRules</code>:リソースレベル設定をサポートする</li>
 <li><code class="codeinline">DescribeSecurityGroups</code>:リソースレベル設定をサポートしない</li>
 </ul>
+<p>
 公式でもこのような書きぶりになっており、従って<code class="codeinline">ModifySecurityGroupRules</code>はリソースごとに特定できるはずだが、どうもうまくいかなかったため、全リソースに付与した。
 </p>
 
