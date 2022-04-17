@@ -70,7 +70,7 @@ MathJax = {
             ],
             "Condition": {
                 "StringNotEquals": {
-                    "ec2:ResourceTag/Name": <b class="bcode">"mdfsg"</b>
+                    "ec2:ResourceTag/Name": <b class="bcode">"何かしらタグ"</b>
                 }
             }
         },
@@ -88,6 +88,11 @@ MathJax = {
 }
 </code>
 </pre>
+<p>
+3. セキュリティグループにタグ付け<br>
+以下の画面からタグを追加。key=Name、valueは上記の"何かしらタグ"と揃える。<br>
+<img class="im" src="images/aws_iam_23.jpg" alt="img" height="300px"><br>
+</p>
 <h2>解説</h2>
 <h3>1つ目のオブジェクト</h3>
 <p>
