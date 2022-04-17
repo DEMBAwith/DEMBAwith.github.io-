@@ -44,104 +44,115 @@ MathJax = {
 <h1>【IAMポリシー設定】セキュリティグループ編集権限</h1>
 <h2>目的・経緯</h2>
 <ol>
-<li>自宅PCをRelying PartyにしてKeycloakで遊びたい</li>
+<li>自宅PCをRelying PartyにしてEC2上のKeycloakで遊びたい</li>
 <li>EC2をパブリックにした状態で遊ぶのはマズいのでIPを自宅PCに制限したい</li>
 <li>都度、ルート権限でサインインしてセキュリティグループを編集するのは面倒かつ危険</li>
 <li>IAMユーザからセキュリティグループを編集できるように権限付与した</li>
 </ol>
-<h2>Ⅰ. ポリシー追加</h2>
+<h2>ポリシー追加</h2>
 <p>
-1.対象のIAMユーザ画面で「インラインポリシーの追加」を選択<br>
+1. 対象のIAMユーザ画面で「インラインポリシーの追加」を選択<br>
 <img class="im" src="images/aws_iam_22.jpg" alt="img" height="300px"><br>
-2.コンソール画面の検索で「IAM」と入力し、(おそらく)一番上に出てくるIAMメニューを選択。<br>
-<img class="im" src="images/aws_iam.jpg" alt="img" height="300px"><br>
-3.左側メニューの「ユーザ」を選択。<br>
-<img class="im" src="images/aws_iam_2.jpg" alt="img" height="300px"><br>
-4.「ユーザを追加」を選択。<br>
-<img class="im" src="images/aws_iam_3.jpg" alt="img" height="300px"><br>
-5.「ユーザ名」には追加するIAMユーザ名を入力。「AWS 認証情報タイプ」はコンソールに入るだけなので「パスワード - AWS マネジメントコンソールへのアクセス」を選択。「コンソールのパスワード」は自分で考えるの面倒なので「自動生成パスワード」を選択。「パスワードのリセットが必要」は特に拘りは無いがチェックを入れる。<br>
-<img class="im" src="images/aws_iam_4.jpg" alt="img" height="400px"><br>
-6.権限は後で与えるので、何もせず次のステップへ。<br>
-<img class="im" src="images/aws_iam_5.jpg" alt="img" height="400px"><br>
-7. タグの編集<br>
-特にタグは要らないので、何もせず次のステップへ。<br>
-<img class="im" src="images/aws_iam_6.jpg" alt="img" height="400px"><br>
-8. 登録内容の確認<br>
-特に問題なければ、「ユーザーの作成」を選択。<br>
-<img class="im" src="images/aws_iam_7.jpg" alt="img" height="400px"><br>
-9. IAMユーザ追加完了/パスワード発行<br>
-これでIAMユーザの追加が完了。User Name/Password/ConsoleURLを記載したCSVはダウンロードしておく。ダウンロードし忘れたら後でIAMユーザの管理画面でパスワードリセットする。<br>
-<img class="im" src="images/aws_iam_9.jpg" alt="img" height="300px">
-<h2>Ⅱ. ポリシーの追加</h2>
-<p>
-1. IAMユーザ選択<br>
-Ⅰ-3の画面へ移動し、新規作成したユーザ名を選択する<br>
-<img class="im" src="images/aws_iam_8.jpg" alt="img" height="250px"><br>
-2. ユーザ情報編集<br>
-「アクセス権限」タブの「アクセス権限の追加」を選択<br>
-<img class="im" src="images/aws_iam_10.jpg" alt="img" height="250px"><br>
-3. アクセス権限の選択<br>
-「既存のポリシーを直接アタッチ」の「ポリシー作成」を選択。※既存ポリシー"AmazonEC2～"の中に適切なものがあるかもしれないが、見つからなかったので使わない。<br>
-<img class="im" src="images/aws_iam_11.jpg" alt="img" height="350px"><br>
-4. ポリシーの作成<br>
-JSONを次の通り編集し、次のステップへ。Region/アカウントID/インスタンスIDはコンソールの別画面から調べる。<br>
-<img class="im" src="images/aws_iam_12.jpg" alt="img" height="350px">
+2. JSONを以下のように編集<br>
 </p>
 <pre>
 <code class="codeblock">
-{
-  "Version": "2012-10-17",
-  "Statement": [
-      {
-          "Effect": "Allow",
-          "Action": ["ec2:StartInstances","ec2:StopInstances"],
-          "Resource": "arn:aws:ec2:<b class="bcode">「Region」</b>:<b class="bcode">「アカウントID」</b>:instance/<b class="bcode">「インスタンスID」</b>",
-          "Condition": {
-              "StringEquals": {
-                  "ec2:ResourceTag/Owner": "${aws:username}"
-              }
-          }
-      },
-      {
-          "Effect": "Allow",
-          "Action": "ec2:DescribeInstances",
-          "Resource": "*"
-      }
-  ]
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Action": [
+                "ec2:ModifySecurityGroupRules"
+            ],
+            "Resource": [
+                "arn:aws:ec2:*:*:security-group/*"
+            ],
+            "Condition": {
+                "StringNotEquals": {
+                    "ec2:ResourceTag/Name": <b class="bcode">"mdfsg"</b>
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSecurityGroupRules",
+                "ec2:DescribeTags",
+                "ec2:ModifySecurityGroupRules"
+            ],
+            "Resource": "*"
+        }
+    ]
 }
 </code>
 </pre>
+<h2>解説</h2>
+<h3>1つ目のオブジェクト</h3>
 <p>
-Regionは以下画面から確認<br>
-<img class="im" src="images/aws_iam_14.jpg" alt="img" height="200px"><br>  
-アカウントIDは以下画面から確認<br>
-<img class="im" src="images/aws_iam_15.jpg" alt="img" height="200px"><br>
-5. タグの編集<br>
-特にタグは要らないので、何もせず次のステップへ。<br>
-<img class="im" src="images/aws_iam_13.jpg" alt="img" height="200px"><br>
-6. ポリシー名称<br>
-適当な名前を付け、「ポリシーの作成」を選択<br>
-<img class="im" src="images/aws_iam_16.jpg" alt="img" height="300px">
+特定のタグを持つセキュリティグループ以外に対し権限を排除するためのもの。
 </p>
-<h2>Ⅲ. EC2へのタグ追加</h2>
+<table>
+<tr>
+<th>key</th>
+<th>valude</th>
+<th>解説</th>
+</tr>
+<tr>
+<td><code class="codeinline">Effect</code></td>
+<td><code class="codeinline">Deny</code></td>
+<td><code class="codeinline">condition</code>を満たすときは<code class="codeinline">Action</code>の権限を持たない</td>
+</tr>  
+<tr>
+<td><code class="codeinline">Action</code></td>
+<td><code class="codeinline">ec2:ModifySecurityGroupRules</code></td>
+<td>セキュリティグループの編集操作</td>
+</tr>
+<tr>
+<td><code class="codeinline">Resource</code></td>
+<td><code class="codeinline">arn:aws:ec2:*:*:security-group/*</code></td>
+<td>ec2のセキュリティグループ全部</td>
+</tr>
+</table>
+<h3>2つ目のオブジェクト</h3>
 <p>
-1. EC2のタグ追加<br>
-対象のEC2に次のタグを追加する。<br>
-<img class="im" src="images/aws_iam_17.jpg" alt="img" height="200px">
-</p>
-<code>{"Owner":"<b class="bcode">「追加したユーザ名」</b>",}</code>
-<h2>Ⅳ. 権限追加したIAMユーザでインスタンス起動できるか確認</h2>
+全リソースに対して権限を付与するもの。
+</p>  
+<table>
+<tr>
+<th>key</th>
+<th>valude</th>
+<th>解説</th>
+</tr>
+<tr>
+<td><code class="codeinline">Effect</code></td>
+<td><code class="codeinline">Allow</code></td>
+<td><code class="codeinline">condition</code>を満たすときは<code class="codeinline">Action</code>の権限を持たない</td>
+</tr>  
+<tr>
+<td><code class="codeinline">Action</code></td>
+<td><code class="codeinline">ec2:DescribeSecurityGroups</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code class="codeinline">Action</code></td>
+<td><code class="codeinline">ec2:DescribeSecurityGroupRules</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code class="codeinline">Action</code></td>
+<td><code class="codeinline">ec2:DescribeTags</code></td>
+<td></td>
+</tr>
+</table>
 <p>
-1. サインイン<br>
-Ⅰ-9で提供されるURLにアクセスするとアカウントIDがプリセットされた状態でサインイン画面が出る。パスワードでサインイン。<br>
-<img class="im" src="images/aws_iam_18.jpg" alt="img" height="400px"><br>
-2. インスタンス起動<br>
-インスタンス起動を押すと、正常に起動する<br>
-3. 今度はMobile Consoleで確認<br>
-<img class="im" src="images/aws_iam_19.jpg" alt="img" height="350px">
-<img class="im" src="images/aws_iam_20.jpg" alt="img" height="350px">
-<img class="im" src="images/aws_iam_21.jpg" alt="img" height="350px"><br>
-…残念ながらこのポリシー設定ではmobile consoleからのアクセスは許可されない様子。しばらくはブラウザから操作するしかなさそう。<br>
+じゃあ「特定のリソースだけ権限を与えればいいじゃん」と考えたい。どうも「リソースレベルの権限をサポート」しているかどうかが問題らしい。例えば次のようになっている。
+<ul>
+<li><code class="codeinline">ModifySecurityGroupRules</code>:リソースレベル設定をサポートする</li>
+<li><code class="codeinline">DescribeSecurityGroups</code>:リソースレベル設定をサポートしない</li>
+</ul>
+公式でもこのような書きぶりになっており、従って<code class="codeinline">ModifySecurityGroupRules</code>はリソースごとに特定できるはずだが、どうもうまくいかなかったため、全リソースに付与した。
 </p>
 
 
@@ -151,10 +162,9 @@ Regionは以下画面から確認<br>
 <hr>
 <h2>References</h2>
 <ul>
-<li><cite>AWS>ドキュメント>Amazon EC2>Linuxインスタンス用ユーザーガイド,<b>Amazon EC2のIAMポリシー</b>,"https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-policies-for-amazon-ec2.html",閲覧日2022/03/19.</cite></li>
-<li><cite>AWS>ドキュメント>Amazon EC2>Linuxインスタンス用ユーザーガイド,<b>ポリシーの構造</b>,"https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-policy-structure.html#policy-syntax",閲覧日2022/03/19.</cite></li>
-<li><cite>AWS>ドキュメント>Amazon EC2>Linuxインスタンス用ユーザーガイド,<b>Example IAM identity-based policies</b>,"https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html",閲覧日2022/03/19.</cite></li>
-<li><cite>AWS>ドキュメント>Amazon EC2>Linuxインスタンス用ユーザーガイド,<b>Amazon EC2: Allows starting or stopping EC2 instances a user has tagged, programmatically and in the console</b>,"https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_ec2_tag-owner.html",閲覧日2022/03/19.</cite></li>
+<li><cite>AWS>ドキュメント>Amazon EC2>Linux インスタンス用ユーザーガイド,<b>Amazon EC2コンソールで機能するサンプル ポリシー(例: セキュリティグループの操作)</b>,"https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/iam-policies-ec2-console.html",閲覧日2022/04/17.</cite></li>
+<li><cite>DevelopersIO, Classmethod, <b>『セキュリティグループの編集におけるリソースタグ条件を使用したアクセス制御を行うためのIAMポリシーの記述方法を教えて下さい』</b>,"https://dev.classmethod.jp/articles/tsnote-ec2-modify-security-group-rules/",閲覧日2022/04/17.</cite></li>
+<li><cite>ZENN,<b>iamポリシーチートシート</b>,"https://zenn.dev/antyuntyun/scraps/5721aec1e964d0",閲覧日2022/04/17.</cite></li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
