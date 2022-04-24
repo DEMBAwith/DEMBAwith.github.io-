@@ -34,7 +34,8 @@ src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorM
 <!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
 
 <h1>SWIFT</h1>
-<h2>Definition</h2>
+<h2 class="h2center">執筆中</h2>
+<h2>Alliance ACCESS</h2>
 <div class="squre">
 <p class="psq">
 認定プロバイダからSWIFTNetへアクセスするサービスを<b>Alliance ACCESS</b>と呼ぶ。Alliance ACCESSには次の3種類がある。
@@ -45,14 +46,36 @@ src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorM
 </ul>
 </p>
 </div>
-<h2>Alliance Connect Gold</h2>
+<h3>Alliance Connect Gold</h3>
 <p>
 最も想定利用数が多い金融機関向け。1日あたりの40,000メッセージ以上。複数(2～4社)の認定パートナーから専用線を引く。
 </p>
-<h2>Alliance Connect Bronze</h2>
+<h3>Alliance Connect Bronze</h3>
 <p>
 比較的利用数が少ない金融機関向け。1日あたりの最大で1,000メッセージ程度。2つのVPN boxesでactive/standbyモードで冗長化する。stanbyモードのbackup channelはインターネットVPNも利用可。
 </p>
+<h2>MT電文</h2>
+<p>
+SWIFTとのやり取りはMT電文という形式の電子メッセージで実行される。
+</p>
+<table>
+<tr>
+<td>#</td>
+<td>目的</td>
+</tr>
+<tr>
+<td>MT202</td>
+<td>送金指図</td>
+</tr>
+<tr>
+<td>MT300</td>
+<td>CLS決済のコンファメーション</td>
+</tr>
+</table>
+
+<p class="mb10"></p>
+<p>以上</p>
+
 <!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
 <hr>
 <h2>References</h2>
@@ -60,6 +83,7 @@ src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorM
 <li><cite>中島真志, 『SWIFTのすべて』, 東洋経済新報社,2009.</cite></li>
 <li><cite>SWIFT, Alliance Connect, "https://www.swift.com/our-solutions/interfaces-and-integration/alliance-connect", 閲覧日2022/03/01.</cite></li>
 <li><cite>SWIFT, Alliance Connect Gold, "https://www.swift.com/swift-resource/10686/download", 閲覧日2022/03/01.</cite></li>
+<li><cite>iotafinance.com, 'SWIFT ISO 15022 - Message types in category', "https://www.iotafinance.com/en/SWIFT-ISO15022-Message-types-in-category-1.html", 閲覧日2022/03/01.</cite></li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
