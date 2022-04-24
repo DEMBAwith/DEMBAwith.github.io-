@@ -43,11 +43,19 @@ MathJax = {
 
 <h1>CLS</h1>
 <h2 class="h2center">執筆中</h2>
-<h2>概要</h2>
+<h2>CLS決済の参加者</h2>
 <p>
-
+次の2種類がいる
+<ul>
+<li>決済メンバー(Settlement Member):CLS銀行に口座を持ち、他の決済メンバーと直接決済する参加者。2022年4月現在、日本法人は3メガ、大和証券、SMTBなど。</li>
+<li>サードパーティ(Third Party):CLS銀行に口座を持たない間接参加者。Third Party Providerという特定の決済メンバーと契約し、委託する形で参加している。</li>
+</ul>
 </p>
-<p class="subp">ややこしいが、CLS銀行はCCPではない。例えば日本のCCPであるJSCCは取引の相手方となりうるが、CLS銀行は飽くまでPVP決済のための機能のみを持つ。与信管理はやらない。言い換えると、為替は<a href="ccp_otc.html">OTC取引</a>しかない。</p>
+<p class="subp">ややこしいが、CLS銀行はCCPではない。例えばJSCCは取引の相手方だが、CLS銀行は飽くまでPVP決済のための機能のみを持ち取引相手ではない。与信管理もやらない。言い換えると、為替は<a href="ccp_otc.html">OTC取引</a>しかない。ちなみにJSCCはDVP決済、CLSはPVP決済を実現するための機関であり、単語は異なるが同時決済というコンセプトは同じである。</p>
+<h2>CLSNow</h2>
+<p>
+same-day取引(T+0やValue-Todayとも)をCLSネッティングするサービス。2022年4月現在、CAD,EUR,GBP,USDに対応。
+</p>
 
 
 <p class="mb10"></p>
@@ -56,7 +64,8 @@ MathJax = {
 <hr>
 <h2>References</h2>
 <ul>
-<li><cite></cite></li>
+<li><cite>中島真志,外為決済とCLS銀行,東洋経済新報社,2016.</cite></li>
+<li><cite>CLS,Home>Products>Settlement>CLSNow,"https://www.cls-group.com/products/settlement/clsnow/",閲覧日2022/04/22.</cite></li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
