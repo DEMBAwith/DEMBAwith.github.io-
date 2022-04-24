@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<title>keycloak</title>
+<title>JWT</title>
 <link rel="stylesheet" href="javascript.css">
 <meta charset="UTF-8">
 <script>
@@ -47,6 +47,124 @@ MathJax = {
 <p>
 JSON Web Tokenの略称。<code class="codeinline">base64url(Header).base64url(Payload).base64url(Signature)</code>というピリオドで区切られた３要素がそれぞれbase64urlエンコードされているデータ形式。例えばOIDCで用いられるIDトークンはJWT形式でやりとりされる。
 </p>
+<h2>Base64</h2>
+<p>
+次の手順に従った文字列やバイナリ列をエンコーディングをBase64と呼ぶ。7ビットのデータを扱う電子メールや、テキスト形式のデータしか受け付けないプレゼンテーション層に対応するエンコード方式。
+</p>
+<table>
+<tr>
+<td>順序</td>
+<td>操作</td>
+<td>例</td>
+</tr>
+<tr>
+<td>0</td>
+<td>(必要案文字列はこちら)</td>
+<td>A9m*</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ASCII文字コードでバイナリ化(元からバイナリの場合は不要)</td>
+<td>01000001 00111001 01101101 00101010</td>
+</tr>
+<tr>
+<td>3</td>
+<td>6-bitに区切る</td>
+<td>010000|01 0011|1001 01|101101| 001010|10</td>
+</tr>
+<tr>
+<td>4</td>
+<td>後ろは0でパディング</td>
+<td>010000|01 0011|1001 01|101101| 001010|10 0000</td>
+</tr>
+<td>5</td>
+<td>以下の64進数変換テーブルに対応して文字列に変換</td>
+<td>Q | T | l | t | K | g</td>
+</tr>
+</table>
+<h3>文字列変換テーブル※一部略 referencのIETFページ参照</h3>
+<table>
+<tr>
+<td>64進数</td>
+<td>2進数</td>
+<td>文字</td>
+</tr>
+<tr>
+<td>0</td>
+<td>000000</td>
+<td>A</td>
+</tr>
+<tr>
+<td>1</td>
+<td>000001</td>
+<td>B</td>
+</tr>
+<tr>
+<td>2</td>
+<td>000010</td>
+<td>C</td>
+</tr>
+<tr>
+<td>3</td>
+<td>000011</td>
+<td>D</td>
+</tr>
+<tr>
+<td>10</td>
+<td>001010</td>
+<td>K</td>
+</tr>
+<tr>
+<td>16</td>
+<td>010000</td>
+<td>Q</td>
+</tr>
+<tr>
+<td>19</td>
+<td>010011</td>
+<td>T</td>
+</tr>
+<tr>
+<td>25</td>
+<td>011001</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>26</td>
+<td>011010</td>
+<td>a</td>
+</tr>
+<tr>
+<td>32</td>
+<td>100000</td>
+<td>g</td>
+</tr>
+<tr>
+<td>37</td>
+<td>100101</td>
+<td>l</td>
+</tr>
+<tr>
+<td>45</td>
+<td>101101</td>
+<td>t</td>
+</tr>  
+<tr>  
+<td>51</td>
+<td>110011</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>63</td>
+<td>111111</td>
+<td>/</td>
+</tr>
+</table>
+<ul>
+<li></li>
+</ul>
+<h20>base64url</h20>
+<p>base64を元に</p>
 <h2>エンコード／デコード</h2>
 
 <p class="mb10"></p>
@@ -56,6 +174,8 @@ JSON Web Tokenの略称。<code class="codeinline">base64url(Header).base64url(P
 <h2>References</h2>
 <ul>
 <li><cite>,"https://thinkit.co.jp/article/17621",閲覧日2022/04/17.</cite></li>
+<li><cite>IETF,"The Base16, Base32, and Base64 Data Encodings","https://datatracker.ietf.org/doc/html/rfc3548",閲覧日2022/04/17.</cite></li>
+<li><cite>田村研究室,ASCIIコード表,"http://www3.nit.ac.jp/~tamura/ex2/ascii.html",閲覧日2022/04/17.</cite></li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
