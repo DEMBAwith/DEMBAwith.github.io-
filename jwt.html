@@ -155,17 +155,36 @@ JSON Web Tokenの略称。<code class="codeinline">base64url(Header).base64url(P
 <td>Z</td>
 </tr>
 <tr>
+<td>62</td>
+<td>111110</td>
+<td>+</td>
+</tr>
+<tr>
 <td>63</td>
 <td>111111</td>
 <td>/</td>
 </tr>
 </table>
-<ul>
-<li></li>
-</ul>
-<h20>base64url</h20>
-<p>base64を元に</p>
-<h2>エンコード／デコード</h2>
+<h2>base64url</h2>
+<p>base64を元にURLに使えるように修正された文字コード。/ はディレクトリ区切り等で使うのでURLには具合が良くないなど理由で設けられた。下表のほか、パディング規則などIETF「<a hre="https://datatracker.ietf.org/doc/html/rfc4648#section-5">5.  Base 64 Encoding with URL and Filename Safe Alphabet</a>」参照</p>
+<table>
+<tr>
+<td>64進数</td>
+<td>2進数</td>
+<td>文字</td>
+</tr>
+<tr>
+<td>62</td>
+<td>111110</td>
+<td>-</td>
+</tr>
+<tr>
+<td>63</td>
+<td>111111</td>
+<td>=</td>
+</tr>td>
+</tr>
+</table>
 
 <p class="mb10"></p>
 <p>以上</p>
@@ -176,6 +195,8 @@ JSON Web Tokenの略称。<code class="codeinline">base64url(Header).base64url(P
 <li><cite>,"https://thinkit.co.jp/article/17621",閲覧日2022/04/17.</cite></li>
 <li><cite>IETF,"The Base16, Base32, and Base64 Data Encodings","https://datatracker.ietf.org/doc/html/rfc3548",閲覧日2022/04/17.</cite></li>
 <li><cite>田村研究室,ASCIIコード表,"http://www3.nit.ac.jp/~tamura/ex2/ascii.html",閲覧日2022/04/17.</cite></li>
+<li><cite>Qiita,Base64 エンコードと Base64 URL エンコードの違い,"https://qiita.com/kunihiros/items/2722d690b1525813c45e",閲覧日2022/04/17.</cite></li>
+<li><cite>Qiita,Base64 エンコードと Base64 URL エンコードの違い,"https://datatracker.ietf.org/doc/html/rfc4648#section-5",閲覧日2022/04/17.</cite></li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
