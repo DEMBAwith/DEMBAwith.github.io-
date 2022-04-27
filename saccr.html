@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<title>CLS</title>
+<title>カレントエクスポージャー方式とSA-CCR方式</title>
 <link rel="stylesheet" href="javascript.css">
 <meta charset="UTF-8">
 <script>
@@ -36,27 +36,18 @@ MathJax = {
 <ol>
 <li class="crumb"><a href="index.html">INDEX</a></li>
 <li class="crumb"><a href="">金融インフラ</a></li>
-<li class="crumb">CLS</li>
+<li class="crumb">カレントエクスポージャー方式とSA-CCR方式</li>
 </ol>
 </nav>
 <!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
 
-<h1>CLS</h1>
+<h1>カレントエクスポージャー方式とSA-CCR方式</h1>
 <h2 class="h2center">執筆中</h2>
-<h2>CLS決済の参加者</h2>
+<h2>概要</h2>
 <p>
-次の2種類がいる
-<ul>
-<li>決済メンバー(Settlement Member):CLS銀行に口座を持ち、他の決済メンバーと直接決済する参加者。2022年4月現在、日本法人は3メガ、大和証券、SMTBなど。</li>
-<li>サードパーティ(Third Party):CLS銀行に口座を持たない間接参加者。Third Party Providerという特定の決済メンバーと契約し、委託する形で参加している。</li>
-</ul>
+為替予約、金利スワップ、通貨オプションといったデリバティブの時価計算は、従前はカレントエクスポージャー方式で実施されていた。バーゼルⅢ「レバレッジ比率規制」取引相手(金融機関など)担保とのCSAによってネッティングを考慮することで<br>
+※なお<a href="https://www.fsa.go.jp/news/r3/ginkou/20220325-2.html">2022年3月の金融庁からの通達</a>により、国内金融機関のレバレッジ比率規制の適用開始期限が2023年3月から2024年3月に延期することが可能となった。
 </p>
-<p class="subp">ややこしいが、CLS銀行はCCPではない。例えばJSCCは取引の相手方だが、CLS銀行は飽くまでPVP決済のための機能のみを持ち取引相手ではない。与信管理もやらない。言い換えると、為替は<a href="ccp_otc.html">OTC取引</a>しかない。ちなみにJSCCはDVP決済、CLSはPVP決済を実現するための機関であり、単語は異なるが同時決済というコンセプトは同じである。</p>
-<h2>CLSNow</h2>
-<p>
-same-day取引(T+0やValue-Todayとも)でCLSネッティングするサービス。2022年4月現在、CAD,EUR,GBP,USDに対応。
-</p>
-
 
 <p class="mb10"></p>
 <p>以上</p>
@@ -64,8 +55,7 @@ same-day取引(T+0やValue-Todayとも)でCLSネッティングするサービ�
 <hr>
 <h2>References</h2>
 <ul>
-<li><cite>中島真志,『外為決済とCLS銀行』,東洋経済新報社,2016.</cite></li>
-<li><cite>CLS,Home>Products>Settlement>CLSNow,"https://www.cls-group.com/products/settlement/clsnow/",閲覧日2022/04/22.</cite></li>
+<li><cite>吉井一洋 金本悠希 小林章子 藤野大輝,『バーゼル規制の実務』,金融財政事情研究会,2019.</cite></li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
