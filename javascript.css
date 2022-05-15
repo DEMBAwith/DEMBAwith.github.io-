@@ -98,7 +98,12 @@ h2.h2center{
   padding: 0 0 0 1em;
   text-align: center;
 }
-  
+ 
+h2.h2centerd{
+  color: #0b004d;/*文字色*/
+  padding: 0 0 0 1em;
+  text-align: center;
+}
 
 code.codeinline{
   display: inline-block;
