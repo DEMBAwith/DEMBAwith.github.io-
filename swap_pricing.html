@@ -84,7 +84,7 @@ MathJax = {
 <li>LIBOR 1Y:7.2%</li>
 <li>SWAP 2Y:7.3%</li>
 </ul>
-<h3>Receiver側のcash flow</h3>
+<h3>Receiver側のCF</h3>
 <p>
 契約時点を$t=0$とし、時点$t[\text{年}]$におけるReceiver側CFを$C_R(t)$、DFを$D(t)$と定義する。Receiver側CFの現在価値合計$P_R$は次の通り算出できる。
 \begin{eqnarray}
@@ -150,8 +150,17 @@ D(1.5)&=& \frac{D(0) -\frac{1}{2}r_s(1.5)D(0.5) -\frac{1}{2}r_s(1.5)D(1.0)}{1+\f
 ■$D(2.0)$<br>
 $D(1.0)$と同様の手続きにより、次式が得られる。
 \begin{eqnarray}
-D(2.0)&=& \frac{D(0) -\frac{1}{2}r_s(2.0)D(0.5) -\frac{1}{2}r_s(2.0)D(1.0)-\frac{1}{2}r_s(2.0)D(1.5)}{1+\frac{1}{2}r_s(2.0)}
+D(2.0)&=& \frac{D(0) -\frac{1}{2}r_s(2.0)D(0.5) -\frac{1}{2}r_s(2.0)D(1.0)-\frac{1}{2}r_s(2.0)D(1.5)}{1+\frac{1}{2}r_s(2.0)} =0.8663
 \end{eqnarray}
+■$P_R$<br>
+以上よりReceiver側CFの現在価値合計$P_R$が得られる。
+\begin{eqnarray}
+P_R/\nu&=& \left(\frac{D(0)}{D(0.5)}-1\right)D(0.5)+\left(\frac{D(0.5)}{D(1.0)}-1\right)D(1.0)+\left(\frac{D(1.0)}{D(1.5)}-1\right)D(1.5)+\left(\frac{D(1.5)}{D(2.0)}-1\right)D(2.0)\\
+&=& D(0) - D(2.0) \\
+\Rightarrow P_R &=& 133,695,996 \textrm{円}
+\end{eqnarray}
+<h3>Payer側のCF</h3>
+
 </p>
 <p class="mb10"></p>
 <p>以上</p>
