@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>スワップのプライシング</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">金融工学</a></li>
+<li class="crumb">スワップのプライシング</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>スワップのプライシング</h1>
+<h2 class="h2center">執筆中</h2>
+<h2>概要</h2>
+<p>
+スワップの価格（すなわち現在価値、Present Value、PV、あるいはエクスポージャーと呼ばれる値）は情報端末には表示されない。概して、スワップ契約に含む各キャッシュフローの現在価値をディスカウントファクターから算出し、それらの合計から得ることができる。<br>
+&emsp;<img class="im" src="images/bloomberg1.jpg"  alt="img" height="200px">
+</p>
+<p class="subp">画像元:https://quant.stackexchange.com/questions/46863/interpolating-the-swap-curve <br>
+本項においてCF=キャッシュフロー、DF=ディスカウントファクターを意味する
+</p>
+<h3>スポットレート</h3>
+<p>
+レートにはいくつかの区分が存在する（例えば「単利」と「複利」やday count fraction）。そのうち1つに「スポットレート」と「スワップレート」がある。概して次のように区別される。
+</p>
+<ul>
+<li>スポットレート：期日にのみCFが発生するレート</li>
+<li>スワップレート：ターム毎にCFが発生するレート</li>
+</ul>
+<p>
+以後、DF算定に用いるレートは1年複利スポットレートとする。
+</p>
+<h2>例</h2>
+<h3>スワップの条件</h3>
+<p>
+次のスワップ契約の現在価値を算出する。自分は(固定の)Payerとする。<br>
+■スワップ条件
+</p>
+<ul>
+<li>通貨:JPY/JPY</li>
+<li>想定元本:1,000,000,000円($\equiv \nu$)</li>
+<li>期間:2年</li>
+<li>day count fraction:ACT/365</li>
+<li>fixed rate:7.1%</li>
+<li>floating rate:JPY LIBOR 6M(すでに非公表だが、簡単のため)</li>
+<li>Payment:semi-annual/Post</li>
+<li>Receipt:semi-annual/Post</li>
+</ul>
+<p>
+&emsp;<img class="im" src="images/cash_flow1.jpg" alt="img" height="150px"><br>
+■QUOTE rate</p>
+<ul>
+<li>LIBOR 6M:7.0%</li>
+<li>LIBOR 1Y:7.2%</li>
+<li>SWAP 2Y:7.3%</li>
+</ul>
+<h3>Receiver側のcash flow</h3>
+<p>
+契約時点を$t=0$とし、時点$t[\text{年}]$におけるReceiver側CFを$C_R(t)$、DFを$D(t)$と定義する。Receiver側CFの現在価値合計$P_R$は次の通り算出できる。
+\begin{eqnarray}
+P_R=C_R(0.5)*D(0.5)+C_R(1.0)*D(1.0)+C_R(1.5)*D(1.5)+C_R(2.0)*D(2.0)
+\end{eqnarray}
+また$t[\textrm{年}]$後のターム$\sigma$のLIBORを$L_{\sigma}(t)$と書く（例:1年後の6M LIBORは$L_{6M}(1.0)$）。$C_R$は次のように得られる。
+\begin{eqnarray}
+C_R(t)=\frac{1}{2}L_{6M}(t)\nu
+\end{eqnarray}
+これを使って$P_R$は次のように変形できる。
+\begin{eqnarray}
+P_R=\nu\left[ \frac{1}{2}L_{6M}(0)*D(0.5)+\frac{1}{2}L_{6M}(0.5)*D(1.0)+\frac{1}{2}L_{6M}(1.0)*D(1.5)+\frac{1}{2}L_{6M}(1.5)*D(2.0) \right]
+\end{eqnarray}
+given条件からそれぞれの値を求める。<br>
+■$L_{6M}(0.5)$,$D(0.5)$,$D(1.0)$
+\begin{eqnarray}
+\nu &=& 1,000,000,000 \\
+L_{6M}(0) &=& 0.07 \\
+L_{1Y}(0) &=& 0.072 \\
+D(0.5) &\equiv& \frac{1}{1+\frac{1}{2}\cdot\frac{365}{360}\cdot L_{6M}(0)} = 0.96573 \\
+D(1.0) &\equiv& \frac{1}{1+\frac{1}{2}\cdot\frac{365}{360}\cdot L_{1Y}(0)} = 0.93197
+\end{eqnarray}
+■$L(0.5,0.5)$<br>
+時点$0.5$において$1$円のインターバンク資金を貸すと、リスクフリーで時点$1.0$に$L(0.5,0.5)$円が得られる条件を課す。すなわち、時点$0$から見てこの2つのCFの現在価値は一致する。<br>
+&emsp;<img class="im" src="images/cash_flow2.jpg" alt="img" height="160px">
+\begin{eqnarray}
+1\cdot D(0.5) &=& 1\cdot \left(1+\frac{1}{2}L_{6M}(0.5)\right)D(1.0) \\
+\Rightarrow L_{6M}(0.5) &=& 2\left(\frac{D(0.5)}{D(1.0)}-1\right) = 0.07245
+\end{eqnarray}
+同様に次の式が得られる。
+\begin{eqnarray}
+L_{6M}(1.0) &=& 2\left(\frac{D(1.0)}{D(1.5)}-1\right) \\
+L_{6M}(1.5) &=& 2\left(\frac{D(1.5)}{D(2.0)}-1\right)
+\end{eqnarray}
+一般には次のように書ける
+\begin{eqnarray}
+L_{6M}(t) &=& 2\left(\frac{D(t)}{D(t+0.5)}-1\right)
+\end{eqnarray}
+■$D(1.5)$<br>
+本件スワップと同条件で想定元本1円、期間1.5年のスワップ契約を考える。スワップレートを$r_s(1.5)$とするとCF図は次のようになる。<br>
+&emsp;<img class="im" src="images/cash_flow3.jpg" alt="img" height="150px"><br>
+受払のCFを現在価値にディスカウントするとき、No-Arbitrage条件から次式が得られる。
+\begin{eqnarray}
+\frac{1}{2}r_s(1.5)D(0.5)+\frac{1}{2}r_s(1.5)D(1.0)+\frac{1}{2}r_s(1.5)D(1.5) &=& \frac{1}{2}L_{6M}(0)D(0.5)+\frac{1}{2}L_{6M}(0.5)D(1.0)+\frac{1}{2}L_{6M}(1.0)D(1.5) \\
+\Rightarrow \frac{1}{2}r_s(1.5)\left[D(0.5)+D(1.0)+D(1.5)\right] &=& \left(\frac{D(0)}{D(0.5)}-1\right)D(0.5)+\left(\frac{D(0.5)}{D(1.0)}-1\right)D(1.0)+\left(\frac{D(1.0)}{D(1.5)}-1\right)D(1.5) \\
+&=& D(0)-D(1.5) \\
+\Rightarrow \left[1+\frac{1}{2}r_s(1.5) \right]D(1.5)&=& D(0) +\frac{1}{2}r_s(1.5)D(0.5) +\frac{1}{2}r_s(1.5)D(1.0) \\
+\Rightarrow D(1.5)&=& \frac{D(0) +\frac{1}{2}r_s(1.5)D(0.5) +\frac{1}{2}r_s(1.5)D(1.0)}{1+\frac{1}{2}r_s(1.5)}
+\end{eqnarray}
+$D(0)=1$は自明。$r_s(1.5)$はunknownである。$r_s(1.5)$の求め方は
+</p>
+<p class="mb10"></p>
+<p>以上</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>杉本浩一 福島良治 若林公子,『スワップ取引のすべて』,金融財政事情研究会,2016.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>
