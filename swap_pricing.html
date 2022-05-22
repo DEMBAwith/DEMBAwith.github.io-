@@ -88,7 +88,7 @@ MathJax = {
 <p>
 契約時点を$t=0$とし、時点$t[\text{年}]$におけるReceiver側CFを$C_R(t)$、DFを$D(t)$と定義する。Receiver側CFの現在価値合計$P_R$は次の通り算出できる。
 \begin{eqnarray}
-P_R=C_R(0.5)*D(0.5)+C_R(1.0)*D(1.0)+C_R(1.5)*D(1.5)+C_R(2.0)*D(2.0)
+P_R=C_R(0.5)D(0.5)+C_R(1.0)D(1.0)+C_R(1.5)D(1.5)+C_R(2.0)D(2.0)
 \end{eqnarray}
 また$t[\textrm{年}]$後のターム$\sigma$のLIBORを$L_{\sigma}(t)$と書く（例:1年後の6M LIBORは$L_{6M}(1.0)$）。$C_R$は次のように得られる。
 \begin{eqnarray}
@@ -96,10 +96,10 @@ C_R(t)=\frac{1}{2}L_{6M}(t)\nu
 \end{eqnarray}
 これを使って$P_R$は次のように変形できる。
 \begin{eqnarray}
-P_R=\nu\left[ \frac{1}{2}L_{6M}(0)*D(0.5)+\frac{1}{2}L_{6M}(0.5)*D(1.0)+\frac{1}{2}L_{6M}(1.0)*D(1.5)+\frac{1}{2}L_{6M}(1.5)*D(2.0) \right]
+P_R=\nu\left[ \frac{1}{2}L_{6M}(0)D(0.5)+\frac{1}{2}L_{6M}(0.5)D(1.0)+\frac{1}{2}L_{6M}(1.0)D(1.5)+\frac{1}{2}L_{6M}(1.5)D(2.0) \right]
 \end{eqnarray}
 given条件からそれぞれの値を求める。<br>
-■$L_{6M}(0.5)$,$D(0.5)$,$D(1.0)$
+■$L_{6M}(0)$,$D(0.5)$,$D(1.0)$
 \begin{eqnarray}
 \nu &=& 1,000,000,000 \\
 L_{6M}(0) &=& 0.07 \\
@@ -107,7 +107,7 @@ L_{1Y}(0) &=& 0.072 \\
 D(0.5) &\equiv& \frac{1}{1+\frac{1}{2}\cdot\frac{365}{360}\cdot L_{6M}(0)} = 0.96573 \\
 D(1.0) &\equiv& \frac{1}{1+\frac{1}{2}\cdot\frac{365}{360}\cdot L_{1Y}(0)} = 0.93197
 \end{eqnarray}
-■$L(0.5,0.5)$<br>
+■$L_{6M}(t)$<br>
 時点$0.5$において$1$円のインターバンク資金を貸すと、リスクフリーで時点$1.0$に$L(0.5,0.5)$円が得られる条件を課す。すなわち、時点$0$から見てこの2つのCFの現在価値は一致する。<br>
 &emsp;<img class="im" src="images/cash_flow2.jpg" alt="img" height="160px">
 \begin{eqnarray}
@@ -131,15 +131,26 @@ L_{6M}(t) &=& 2\left(\frac{D(t)}{D(t+0.5)}-1\right)
 \frac{1}{2}r_s(1.5)D(0.5)+\frac{1}{2}r_s(1.5)D(1.0)+\frac{1}{2}r_s(1.5)D(1.5) &=& \frac{1}{2}L_{6M}(0)D(0.5)+\frac{1}{2}L_{6M}(0.5)D(1.0)+\frac{1}{2}L_{6M}(1.0)D(1.5) \\
 \Rightarrow \frac{1}{2}r_s(1.5)\left[D(0.5)+D(1.0)+D(1.5)\right] &=& \left(\frac{D(0)}{D(0.5)}-1\right)D(0.5)+\left(\frac{D(0.5)}{D(1.0)}-1\right)D(1.0)+\left(\frac{D(1.0)}{D(1.5)}-1\right)D(1.5) \\
 &=& D(0)-D(1.5) \\
-\Rightarrow \left[1+\frac{1}{2}r_s(1.5) \right]D(1.5)&=& D(0) +\frac{1}{2}r_s(1.5)D(0.5) +\frac{1}{2}r_s(1.5)D(1.0) \\
-\Rightarrow D(1.5)&=& \frac{D(0) +\frac{1}{2}r_s(1.5)D(0.5) +\frac{1}{2}r_s(1.5)D(1.0)}{1+\frac{1}{2}r_s(1.5)}
+\Rightarrow \left[1+\frac{1}{2}r_s(1.5) \right]D(1.5)&=& D(0) -\frac{1}{2}r_s(1.5)D(0.5) -\frac{1}{2}r_s(1.5)D(1.0) \\
+\Rightarrow D(1.5)&=& \frac{D(0) -\frac{1}{2}r_s(1.5)D(0.5) -\frac{1}{2}r_s(1.5)D(1.0)}{1+\frac{1}{2}r_s(1.5)}
 \end{eqnarray}
-$D(0)=1$は自明。$r_s(1.5)$はunknownである。$r_s(1.5)$の求め方は複数あるが、本項では簡単のため線形補完とする。
+$D(0)=1$は自明。$r_s(1.5)$はunknownである。$r_s(1.5)$の求め方は複数あるが、本項では簡単のため単純な線形補完とする。
 \begin{eqnarray}
-r_s(1.5) &=& \frac{r_s(2.0)-r_s(1.0)}{2.0-1.0}
+r_s(1.5) &\simeq& r_s(1.0) + \frac{r_s(2.0)-r_s(1.0)}{2.0-1.0}\cdot\Delta t = 0.0723
 \end{eqnarray}
-2Yのスワップレート$r_s(r.0)$はQUOTEできる。$r_s(1.0)$はスポットレートから算出できる。
+※2Yのスワップレート$r_s(r.0)$はQUOTEできる。$r_s(1.0)$は上記と同様に算出できる。
 \begin{eqnarray}
+\frac{1}{2}r_s(1.0)\left[D(0.5)+D(1.0)\right] &=& D(0)-D(1.0) \\
+\Rightarrow r_s(1.0) &=& 2\frac{D(0)-D(1.0)}{D(0.5)+D(1.0)} = 0.0716
+\end{eqnarray}
+以上より$D(1.5)$が得られる
+\begin{eqnarray}
+D(1.5)&=& \frac{D(0) -\frac{1}{2}r_s(1.5)D(0.5) -\frac{1}{2}r_s(1.5)D(1.0)}{1+\frac{1}{2}r_s(1.5)} = 0.8989
+\end{eqnarray}
+■$D(2.0)$<br>
+$D(1.0)$と同様の手続きにより、次式が得られる。
+\begin{eqnarray}
+D(2.0)&=& \frac{D(0) -\frac{1}{2}r_s(2.0)D(0.5) -\frac{1}{2}r_s(2.0)D(1.0)-\frac{1}{2}r_s(2.0)D(1.5)}{1+\frac{1}{2}r_s(2.0)}
 \end{eqnarray}
 </p>
 <p class="mb10"></p>
