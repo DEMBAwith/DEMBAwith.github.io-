@@ -73,10 +73,8 @@ MathJax = {
 <li>想定元本:1,000,000,000円($\equiv \nu$)</li>
 <li>期間:2年</li>
 <li>day count fraction:ACT/365</li>
-<li>fixed rate:7.1%</li>
-<li>floating rate:JPY LIBOR 6M(すでに非公表だが、簡単のため)</li>
-<li>Payment:semi-annual/Post</li>
-<li>Receipt:semi-annual/Post</li>
+<li>fixed rate:7.1%(semi-annual/後払い)</li>
+<li>floating rate:JPY LIBOR 6M(semi-annual/後払い) ※すでに非公表だが簡単のため</li>
 </ul>
 <p>
 &emsp;<img class="im" src="images/cash_flow1.jpg" alt="img" height="150px"><br>
@@ -136,7 +134,13 @@ L_{6M}(t) &=& 2\left(\frac{D(t)}{D(t+0.5)}-1\right)
 \Rightarrow \left[1+\frac{1}{2}r_s(1.5) \right]D(1.5)&=& D(0) +\frac{1}{2}r_s(1.5)D(0.5) +\frac{1}{2}r_s(1.5)D(1.0) \\
 \Rightarrow D(1.5)&=& \frac{D(0) +\frac{1}{2}r_s(1.5)D(0.5) +\frac{1}{2}r_s(1.5)D(1.0)}{1+\frac{1}{2}r_s(1.5)}
 \end{eqnarray}
-$D(0)=1$は自明。$r_s(1.5)$はunknownである。$r_s(1.5)$の求め方は
+$D(0)=1$は自明。$r_s(1.5)$はunknownである。$r_s(1.5)$の求め方は複数あるが、本項では簡単のため線形補完とする。
+\begin{eqnarray}
+r_s(1.5) &=& \frac{r_s(2.0)-r_s(1.0)}{2.0-1.0}
+\end{eqnarray}
+2Yのスワップレート$r_s(r.0)$はQUOTEできる。$r_s(1.0)$はスポットレートから算出できる。
+\begin{eqnarray}
+\end{eqnarray}
 </p>
 <p class="mb10"></p>
 <p>以上</p>
@@ -145,6 +149,7 @@ $D(0)=1$は自明。$r_s(1.5)$はunknownである。$r_s(1.5)$の求め方は
 <h2>References</h2>
 <ul>
 <li><cite>杉本浩一 福島良治 若林公子,『スワップ取引のすべて』,金融財政事情研究会,2016.</cite></li>
+<li><cite>学びTimes,線形補間の計算式と近似誤差,"https://manabitimes.jp/math/1422",閲覧日2022/05/21.</cite></li>
 </ul>
 <!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
 
