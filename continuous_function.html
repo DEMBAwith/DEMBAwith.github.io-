@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>連続写像(Conttinuous Funciont)</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">集合・位相・写像・空間</a></li>
+<li class="crumb">連続写像</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>連続写像(Continuous Function)</h1>
+<h2 class="h2centerd">執筆中</h2>
+<h2>Definition</h2>
+<div class="squre">
+<p class="psq">
+距離空間$X$から距離空間$Y$への写像$f:X\rightarrow Y$が次を満たすとき、$f$は連続写像と呼ぶ。
+\begin{eqnarray}
+\forall_{p\in X}\forall_{\epsilon> 0,\epsilon\in\mathbb{R}}\exists_{\delta>0,\delta\in\mathbb{R}}\forall_{q\in X}\left[d(p,q)<\delta \rightarrow d(f(p),f(q))< \epsilon\right]
+\end{eqnarray}
+</p>
+</div>
+<h2>Example</h2>
+<p>
+次の実数関数$f:\mathbb{E}^2\rightarrow \mathbb{E}^2$が連続写像でないこと(=不連続であること)を確かめる。
+\begin{eqnarray}
+(x,y)\rightarrow\left\{
+\begin{array}{l}
+(x,y) \quad \textrm{if} (x \leq \frac{1}{2}) \\
+(x+\frac{1}{4},y) \quad \textrm{if}  (\frac{1}{2}< x)
+\end{array}
+\right.
+\end{eqnarray}
+定義の命題を$P$としたとき、$\bar{P}$が常にtrueであることを示せばよい。すなわち「どんな$epsilon$を選んでも適切に$\delta$を選びさえすれば、どんな$q$を持ってきても$[]$内の命題がtrue」という命題
+\begin{eqnarray}
+P&\equiv&\forall_{p\in X}\forall_{\epsilon> 0,\epsilon\in\mathbb{R}}\exists_{\delta>0,\delta\in\mathbb{R}}\forall_{q\in X}\left[d(p,q)<\delta \rightarrow d(f(p),f(q))< \epsilon\right]\\
+&=&\forall_{p\in X}\forall_{\epsilon> 0,\epsilon\in\mathbb{R}}\exists_{\delta>0,\delta\in\mathbb{R}}\forall_{q\in X}\left[d(p,q)\geq\delta \lor d(f(p),f(q))< \epsilon\right]
+\end{eqnarray}
+の逆、「ある$\epsilon$を選ぶと、どんな$\delta$を選ぼうとも$[]$内の命題がfalseになる$q$が存在する」という命題
+\begin{eqnarray}
+\bar{P}=\exists_{p\in X}\exists_{\epsilon> 0,\epsilon\in\mathbb{R}}\forall_{\delta>0,\delta\in\mathbb{R}}\exists_{q\in X}\left[d(p,q)<\delta \land d(f(p),f(q))\geq \epsilon\right]
+\end{eqnarray}
+がallways trueであることを示す。
+</p>
+
+<p class="mb10"></p>
+<p>以上</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>大田春外,『はじめよう位相空間』,日本評論社,2000.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>
