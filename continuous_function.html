@@ -56,23 +56,39 @@ MathJax = {
 <p>
 次の実数関数$f:\mathbb{E}^2\rightarrow \mathbb{E}^2$が連続写像でないこと(=不連続であること)を確かめる。
 \begin{eqnarray}
-(x,y)\rightarrow\left\{
+p=(x,y)\rightarrow\left\{
 \begin{array}{l}
 (x,y) \quad \textrm{if} (x \leq \frac{1}{2}) \\
 (x+\frac{1}{4},y) \quad \textrm{if}  (\frac{1}{2}< x)
 \end{array}
 \right.
 \end{eqnarray}
-定義の命題を$P$としたとき、$\bar{P}$が常にtrueであることを示せばよい。すなわち「どんな$epsilon$を選んでも適切に$\delta$を選びさえすれば、どんな$q$を持ってきても$[]$内の命題がtrue」という命題
+定義の命題を$P$としたとき、$\bar{P}$が常にtrueであることを示せばよい。すなわち「どんな$epsilon$を選んでも適切に$\delta$を選びさえすれば、どんな$q$を持ってきても$[\ ]$内の命題がtrue」という命題
 \begin{eqnarray}
 P&\equiv&\forall_{p\in X}\forall_{\epsilon> 0,\epsilon\in\mathbb{R}}\exists_{\delta>0,\delta\in\mathbb{R}}\forall_{q\in X}\left[d(p,q)<\delta \rightarrow d(f(p),f(q))< \epsilon\right]\\
 &=&\forall_{p\in X}\forall_{\epsilon> 0,\epsilon\in\mathbb{R}}\exists_{\delta>0,\delta\in\mathbb{R}}\forall_{q\in X}\left[d(p,q)\geq\delta \lor d(f(p),f(q))< \epsilon\right]
 \end{eqnarray}
-の逆、「ある$\epsilon$を選ぶと、どんな$\delta$を選ぼうとも$[]$内の命題がfalseになる$q$が存在する」という命題
+の逆、「ある$\epsilon$を選ぶと、どんな$\delta$を選ぼうとも$[\ ]$内の命題がfalseになる$q$が存在する」という命題
 \begin{eqnarray}
 \bar{P}=\exists_{p\in X}\exists_{\epsilon> 0,\epsilon\in\mathbb{R}}\forall_{\delta>0,\delta\in\mathbb{R}}\exists_{q\in X}\left[d(p,q)<\delta \land d(f(p),f(q))\geq \epsilon\right]
 \end{eqnarray}
-がallways trueであることを示す。
+がallways trueであることを示す。<br>
+まず次の$p,\epsilon$を選ぶ。
+\begin{eqnarray}
+p=\left(\frac{1}{2},0\right), \epsilon=\frac{1}{4}
+\end{eqnarray}
+$q=(x,y)$とおいて$d(p,q),d(f(p),f(q))$を計算する。
+\begin{eqnarray}
+d(p,q)&=&\sqrt{\left(x-\frac{1}{2}\right)^2+y^2}\\
+d(f(p),f(q))&=&\left\{
+    \begin{array}{l}
+    \sqrt{\left(x-\frac{1}{2}\right)^2+y^2} \quad \textrm{if} (x \leq \frac{1}{2}) \\
+    \sqrt{\left(x-\frac{1}{4}\right)^2+y^2} \quad \textrm{if}  (\frac{1}{2}< x)
+    \end{array}
+\right.
+\end{eqnarray}
+$x>\frac{1}{2}$のときは$\sqrt{\left(x-\frac{1}{4}\right)^2+y^2}>\frac{1}{4}$となる。従ってどんな$\delta$を持ってきても、$\left[d(p,q)<\delta\right]=\textrm{T}$かつ$\left[d(f(p),f(q))\geq \epsilon\right]=\textrm{T}$となる$q$を選ぶことができる。<br>
+以上より$\bar{P}=\textrm{T}\Leftrightarrow P=\textrm{F}$であるため、関数$f$は不連続。
 </p>
 
 <p class="mb10"></p>
