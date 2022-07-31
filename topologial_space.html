@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>位相空間(Topological Space)</title>
+<link rel="stylesheet" href="javascript.css">
+<meta charset="UTF-8">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+	processEscapes: true,
+    tags: 'ams',
+    macros: {
+      ssqrt: ['\\sqrt{\\smash[b]{\\mathstrut #1}}', 1],
+      tcdegree: ['\\unicode{xb0}'],
+      tccelsius: ['\\unicode{x2103}'],
+      tcperthousand: ['\\unicode{x2030}'],
+      tcmu: ['\\unicode{x3bc}'],
+      tcohm: ['\\unicode{x3a9}']
+    }
+  },
+  chtml: {
+    matchFontHeight: false,
+    displayAlign: "left",
+    displayIndent: "2em"
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+ 
+<body>
+<!-----------------------↓↓↓↓↓↓↓↓↓パンくず------------------------>
+<nav class="crumbs">
+<ol>
+<li class="crumb"><a href="index.html">INDEX</a></li>
+<li class="crumb"><a href="">集合・位相・写像・空間</a></li>
+<li class="crumb">位相空間</li>
+</ol>
+</nav>
+<!------------------------↑↑↑↑↑↑↑↑↑↑↑パンくず------------------------->
+
+<h1>位相空間(Topological Space)</h1>
+<h2 class="h2centerd">執筆中</h2>
+<h2>Proposition</h2>
+<div class="squre">
+<p class="psq">
+任意の距離空間は位相空間である
+</p>
+</div>
+<h2>証明</h2>
+<p>
+標題は「距離空間で定義される開集合は、必ず位相空間の開集合の公理を満たす」と言い換えられる。これを証明する。<br>
+まず距離空間における開集合の定義は次の通り。
+</p>
+<div class="squre">
+<p class="psq">
+距離空間$X$の部分空間$A$が次を満たすとき、$A$を$X$の開集合と呼ぶ。
+\begin{eqnarray}
+\textrm{Bd}_{X}A\cap A=\phi
+\end{eqnarray}
+</p>
+</div>
+<p class="subp">
+$\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義する。
+\begin{eqnarray}
+\textrm{Bd}_XA=\left\{x|\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\right\}
+\end{eqnarray}
+</p>
+<p>
+一方で位相空間の開集合の公理は次の通りある。
+</p>
+<div class="squre">
+<p class="psq">
+集合$X$の開集合族$\mathscr{T}$の要素$A_1,A_2\cdots A_n$は次を満たす。
+\begin{eqnarray}
+(\textrm{i})&& X\in\mathscr{T},\ \phi\in\mathscr{T}\\
+(\textrm{ii})&& A_1\cap A_2 \cap \cdots \cap A_n \in \mathscr{T}\\
+(\textrm{iii})&& A_1\cup A_2 \cup \cdots \cup A_n \in \mathscr{T}
+\end{eqnarray}
+</p>
+</div>
+<h3>補題</h3>
+<p>
+開集合の定義より次の補題が成立する。
+</p>
+<div class="squre">
+\forall_{x\inA}\exist_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
+<p class="psq">
+
+</p>
+    
+
+<p class="mb10"></p>
+<p>以上</p>
+<!---------------↓↓↓↓↓↓↓↓↓参考文献------------------------------->
+<hr>
+<h2>References</h2>
+<ul>
+<li><cite>大田春外,『はじめよう位相空間』,日本評論社,2000.</cite></li>
+<li><cite>松坂和夫,『集合・位相入門』,岩波書店.</cite></li>
+</ul>
+<!---------------↑↑↑↑↑↑↑↑↑↑参考文献------------------------------->
+
+<!---------------↓↓↓↓↓↓↓↓↓ここからフッタ―------------------------------->
+<script src="footer.js"></script>
+</body>
+
+</html>
