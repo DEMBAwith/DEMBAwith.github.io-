@@ -65,7 +65,7 @@ MathJax = {
 <p class="subp">
 $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義する。
 \begin{eqnarray}
-\textrm{Bd}_XA=\left\{x|\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\right\}
+\textrm{Bd}_XA&\equiv&\left\{x|\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\right\}
 \end{eqnarray}
 </p>
 <p>
@@ -92,10 +92,39 @@ $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義す�
 <div class="squre">
 <p class="psq">
 \begin{eqnarray}
-\forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
+\text{距離空間}X\text{の部分空間}A\text{が開集合} \Leftrightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
 \end{eqnarray}
 </p>
-</div>    
+</div>
+<p>
+■$\textrm{Bd}_{X}A\cap A=\phi \Rightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]$の導出<br>
+距離空間$X$の開集合$A$の要素を$a\in A$とおくと
+\begin{eqnarray}
+\left[\textrm{Bd}_{X}A\cap A=\phi\right]\Rightarrow\left[x\notin \textrm{Bd}_XA\right]
+\end{eqnarray}
+境界の定義より
+\begin{eqnarray}
+x\in\textrm{Bd}_XA &=& \forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\\
+x\notin\textrm{Bd}_XA &=& \lnot\left[\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\right]\\
+&=&\exists_{\epsilon>0}\left[U(x,X,\epsilon)\cap A\neq\phi \textrm{ or }U(x,X,\epsilon)\cap(X-A)\neq\phi\right]
+\end{eqnarray}
+</p>
+<p class="subp">
+一般に次が成立する。
+\begin{eqnarray}
+A\subset B &\Leftrightarrow& A\cap B = A \\
+&\Leftrightarrow& A\cap (X-\bar{B}) = A\\
+&\Leftrightarrow& A\cap X - A\cap\bar{B} = X\cap A\\
+&\Leftrightarrow& A\cap\bar{B}=\phi
+\end{eqnarray}
+</p>
+<p>  
+\begin{eqnarray}
+\left[\textrm{Bd}_{X}A\cap A=\phi\right]\Rightarrow\left[x\notin \textrm{Bd}_XA\right]\Rightarrow\exists_{\epsilon>0}\left[U(x,X,\epsilon)\cap A\neq\phi \textrm{ or }U(x,X,\epsilon)\cap(X-A)\neq\phi\right]
+\end{eqnarray}
+<br>
+■$\forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right] \Rightarrow \textrm{Bd}_{X}A\cap A=\phi$の導出<br>
+</p>
 
 <p class="mb10"></p>
 <p>以上</p>
