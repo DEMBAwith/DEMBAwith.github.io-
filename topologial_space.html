@@ -43,13 +43,13 @@ MathJax = {
 
 <h1>位相空間(Topological Space)</h1>
 <h2 class="h2centerd">執筆中</h2>
-<h2>Proposition</h2>
+<h2>Proposition #1</h2>
 <div class="squre">
 <p class="psq">
 任意の距離空間は位相空間である
 </p>
 </div>
-<h2>前提</h2>
+<h3>前提</h3>
 <p>
 標題は「距離空間で定義される開集合は、必ず位相空間の開集合の公理を満たす」と言い換えられる。距離空間における開集合の定義は次の通り。
 </p>
@@ -64,7 +64,7 @@ MathJax = {
 <p class="subp">
 $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義する。
 \begin{eqnarray}
-\textrm{Bd}_XA&\equiv&\left\{x|x\in X, s.t.\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\right\}
+\textrm{Bd}_XA&\equiv&\left\{x|x\in X, s.t.\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A\neq\phi \land U(x,X,\epsilon)\cap(X-A)\neq\phi\right]\right\}
 \end{eqnarray}
 </p>
 <p>
@@ -74,7 +74,7 @@ $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義す�
 <p class="psq">
 集合$X$の開集合族$\mathscr{T}$の要素$A_1,A_2\cdots A_n$は次を満たす。
 \begin{eqnarray}
-(\textrm{i})&& X\in\mathscr{T},\ \phi\in\mathscr{T}\\
+(\textrm{i})&&\phi\in\mathscr{T},X\in\mathscr{T}\\
 (\textrm{ii})&& A_1\cap A_2 \cap \cdots \cap A_n \in \mathscr{T}\\
 (\textrm{iii})&& A_1\cup A_2 \cup \cdots \cup A_n \in \mathscr{T}
 \end{eqnarray}
@@ -84,7 +84,30 @@ $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義す�
 <p>
 上記で定義した距離空間の開集合が位相空間の公理を満たすことを確かめる
 </p>
-<h3>補題</h3>
+<h3>(i)$\phi\in\mathscr{T}$</h3>
+<p>
+\begin{eqnarray}
+\textrm{Bd}_{X}\phi\cap \phi=\phi
+\end{eqnarray}
+が成立するため、$\phi$は$X$の開集合。
+</p>
+<h3>(i)'$X\in\mathscr{T}$</h3>
+<p>
+\begin{eqnarray}
+\textrm{Bd}_{X}X\cap X= \phi \cap X=\phi
+\end{eqnarray}
+が成立するため、$X$は$X$の開集合。
+</p>
+<p class="subp">
+境界の定義より
+\begin{eqnarray}
+\textrm{Bd}_XX&\equiv&\left\{x|x\in X, s.t.\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap X\neq\phi \land U(x,X,\epsilon)\cap(X-X)\neq\phi\right]\right\}\\
+&=&\left\{x|x\in X, s.t.\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap X\neq\phi \land U(x,X,\epsilon)\cap\phi\neq\phi\right]\right\}\\
+&=&\left\{x|x\in X, s.t.\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap X\neq\phi \land  False \right]\right\}\\
+&=&\phi
+\end{eqnarray}
+</p>
+<h3>(ii)$A_1\cap A_2 \cap \cdots \cap A_n \in \mathscr{T}$</h3>
 <p>
 開集合の定義より次の補題が成立する。
 </p>
@@ -135,7 +158,7 @@ Aは距離空間Xの開集合 \Rightarrow \forall_{x\in A}\exists_{\epsilon>0}\l
 \end{eqnarray}
 </p>
 <p> 
-■$\forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right] \Rightarrow \textrm{Bd}_{X}A\cap A=\phi$の導出<br>
+■$\forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]\Rightarrow A$が距離空間$X$の開集合 の導出<br>
 </p>
 
 <p class="mb10"></p>
