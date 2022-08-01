@@ -49,10 +49,9 @@ MathJax = {
 任意の距離空間は位相空間である
 </p>
 </div>
-<h2>証明</h2>
+<h2>前提</h2>
 <p>
-標題は「距離空間で定義される開集合は、必ず位相空間の開集合の公理を満たす」と言い換えられる。これを証明する。<br>
-まず距離空間における開集合の定義は次の通り。
+標題は「距離空間で定義される開集合は、必ず位相空間の開集合の公理を満たす」と言い換えられる。距離空間における開集合の定義は次の通り。
 </p>
 <div class="squre">
 <p class="psq">
@@ -65,11 +64,11 @@ MathJax = {
 <p class="subp">
 $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義する。
 \begin{eqnarray}
-\textrm{Bd}_XA&\equiv&\left\{x|\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\right\}
+\textrm{Bd}_XA&\equiv&\left\{x|x\in X, s.t.\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\right\}
 \end{eqnarray}
 </p>
 <p>
-一方で位相空間の開集合の公理は次の通り。
+位相空間の開集合の公理は次の通り。
 </p>
 <div class="squre">
 <p class="psq">
@@ -92,21 +91,32 @@ $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義す�
 <div class="squre">
 <p class="psq">
 \begin{eqnarray}
-\text{距離空間}X\text{の部分空間}A\text{が開集合} \Leftrightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
+Aは距離空間Xの開集合 \Leftrightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
 \end{eqnarray}
 </p>
 </div>
 <p>
-■$\textrm{Bd}_{X}A\cap A=\phi \Rightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]$の導出<br>
-距離空間$X$の開集合$A$の要素を$a\in A$とおくと
+■$A$が距離空間$X$の開集合$\Rightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]$の導出<br>
+距離空間$X$の開集合$A$の要素を$x\in A$とおくと、開集合の定義より次が成立する。
 \begin{eqnarray}
-\left[\textrm{Bd}_{X}A\cap A=\phi\right]\Rightarrow\left[x\notin \textrm{Bd}_XA\right]
+\left[Aは距離空間Xの開集合\right]\equiv\left[\textrm{Bd}_{X}A\cap A=\phi\right]\Rightarrow\left[x\notin \textrm{Bd}_XA\right]
 \end{eqnarray}
 境界の定義より
 \begin{eqnarray}
-x\in\textrm{Bd}_XA &=& \forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\\
-x\notin\textrm{Bd}_XA &=& \lnot\left[\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \textrm{ and }U(x,X,\epsilon)\cap(X-A)=\phi\right]\right]\\
-&=&\exists_{\epsilon>0}\left[U(x,X,\epsilon)\cap A\neq\phi \textrm{ or }U(x,X,\epsilon)\cap(X-A)\neq\phi\right]
+x\in\textrm{Bd}_XA &=& \forall_{\epsilon>0}\left[x(x,X,\epsilon)\cap A\neq\phi \land U(x,X,\epsilon)\cap(X-A)\neq\phi\right]\\
+x\notin\textrm{Bd}_XA &=& \lnot\left[\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A\neq\phi \land U(x,X,\epsilon)\cap(X-A)\neq\phi\right]\right]\\
+&=&\exists_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \lor U(x,X,\epsilon)\cap(X-A)=\phi\right]
+\end{eqnarray}
+近傍$U$の定義より
+\begin{eqnarray}
+x\in U(x,X,\epsilon),\quad x\in A \\
+\Rightarrow U(x,X,\epsilon)\cap A\neq\phi
+\end{eqnarray}
+従って
+\begin{eqnarray}
+\left[Aは距離空間Xの開集合\right]&\equiv&\left[\textrm{Bd}_{X}A\cap A=\phi\right]\\
+&\Rightarrow&\exists_{\epsilon>0}\left[U(x,X,\epsilon)\cap(X-A)=\phi\right]\\
+&\Rightarrow&\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
 \end{eqnarray}
 </p>
 <p class="subp">
@@ -118,11 +128,13 @@ A\subset B &\Leftrightarrow& A\cap B = A \\
 &\Leftrightarrow& A\cap\bar{B}=\phi
 \end{eqnarray}
 </p>
-<p>  
+<p>
+以上議論は任意の要素$x\in A$に対して成立するため、
 \begin{eqnarray}
-\left[\textrm{Bd}_{X}A\cap A=\phi\right]\Rightarrow\left[x\notin \textrm{Bd}_XA\right]\Rightarrow\exists_{\epsilon>0}\left[U(x,X,\epsilon)\cap A\neq\phi \textrm{ or }U(x,X,\epsilon)\cap(X-A)\neq\phi\right]
+Aは距離空間Xの開集合 \Rightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
 \end{eqnarray}
-<br>
+</p>
+<p> 
 ■$\forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right] \Rightarrow \textrm{Bd}_{X}A\cap A=\phi$の導出<br>
 </p>
 
