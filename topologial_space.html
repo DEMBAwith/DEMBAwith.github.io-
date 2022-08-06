@@ -80,23 +80,25 @@ $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義す�
 \end{eqnarray}
 </p>
 </div>
-<h2>Proof</h2>
+<h2>Proof #1</h2>
 <p>
-上記で定義した距離空間の開集合が位相空間の公理を満たすことを確かめる
+上記で定義した距離空間の開集合が位相空間の公理を満たすことを確かめる。
 </p>
 <h3>(i)$\phi\in\mathscr{T}$</h3>
 <p>
+距離空間$X$上の開集合の条件に照らし、
 \begin{eqnarray}
 \textrm{Bd}_{X}\phi\cap \phi=\phi
 \end{eqnarray}
-が成立するため、$\phi$は$X$の開集合。
+が成立するため、$\phi$は$X$の開集合であり、開集合族$\mathscr{T}$に属する。
 </p>
 <h3>(i)'$X\in\mathscr{T}$</h3>
 <p>
+距離空間$X$上の開集合の条件に照らし
 \begin{eqnarray}
 \textrm{Bd}_{X}X\cap X= \phi \cap X=\phi
 \end{eqnarray}
-が成立するため、$X$は$X$の開集合。
+が成立するため、$X$は$X$の開集合であり、開集合族$\mathscr{T}$に属する。
 </p>
 <p class="subp">
 境界の定義より
@@ -109,37 +111,43 @@ $\textrm{Bd}_XA$は部分空間$A$の境界を指し、次のように定義す�
 </p>
 <h3>(ii)$A_1\cap A_2 \cap \cdots \cap A_n \in \mathscr{T}$</h3>
 <p>
-開集合の定義より次の補題が成立する。
+距離空間$X$上の開集合の条件に照らし、次が成立すれば$A_1\cap A_2 \cap \cdots \cap A_n$も開集合であり、$A_1\cap A_2 \cap \cdots \cap A_n$は開集合族$\mathscr{T}$に属する。
+\begin{eqnarray}
+\textrm{Bd}_{X}\left[A_1\cap A_2 \cap \cdots A_n\right] \cap\left[A_1\cap A_2 \cap \cdots A_n\right]=\phi
+\end{eqnarray}
+まず、開集合の定義より次の補題が成立する。これを証明する。
 </p>
 <div class="squre">
 <p class="psq">
 \begin{eqnarray}
-Aは距離空間Xの開集合 \Leftrightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
+Aは距離空間Xの開集合 \Leftrightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right] \label{lemma_metricspace}
 \end{eqnarray}
 </p>
 </div>
 <p>
-■$A$が距離空間$X$の開集合$\Rightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]$の導出<br>
-距離空間$X$の開集合$A$の要素を$x\in A$とおくと、開集合の定義より次が成立する。
+■補題の証明<br>
+距離空間$X$上の開集合の定義より次が成立する。
 \begin{eqnarray}
-\left[Aは距離空間Xの開集合\right]\equiv\left[\textrm{Bd}_{X}A\cap A=\phi\right]\Rightarrow\left[x\notin \textrm{Bd}_XA\right]
+\left[Aは距離空間Xの開集合\right]\equiv\left[\textrm{Bd}_{X}A\cap A=\phi\right]\equiv \forall_{x\in A}\left[x\notin \textrm{Bd}_XA\right]
 \end{eqnarray}
 境界の定義より
 \begin{eqnarray}
 x\in\textrm{Bd}_XA &=& \forall_{\epsilon>0}\left[x(x,X,\epsilon)\cap A\neq\phi \land U(x,X,\epsilon)\cap(X-A)\neq\phi\right]\\
-x\notin\textrm{Bd}_XA &=& \lnot\left[\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A\neq\phi \land U(x,X,\epsilon)\cap(X-A)\neq\phi\right]\right]\\
+\Rightarrow x\notin\textrm{Bd}_XA &=& \lnot\left[\forall_{\epsilon>0}\left[U(x,X,\epsilon)\cap A\neq\phi \land U(x,X,\epsilon)\cap(X-A)\neq\phi\right]\right]\\
 &=&\exists_{\epsilon>0}\left[U(x,X,\epsilon)\cap A=\phi \lor U(x,X,\epsilon)\cap(X-A)=\phi\right]
 \end{eqnarray}
 近傍$U$の定義より
 \begin{eqnarray}
-x\in U(x,X,\epsilon),\quad x\in A \\
-\Rightarrow U(x,X,\epsilon)\cap A\neq\phi
+&\quad&[x\in U(x,X,\epsilon)] \land [x\in A] \\
+&\equiv& U(x,X,\epsilon)\cap A\neq\phi \\
+&\equiv&\left[\left[U(x,X,\epsilon)\cap A=\phi\right]=False\right]
 \end{eqnarray}
 従って
 \begin{eqnarray}
 \left[Aは距離空間Xの開集合\right]&\equiv&\left[\textrm{Bd}_{X}A\cap A=\phi\right]\\
-&\Rightarrow&\exists_{\epsilon>0}\left[U(x,X,\epsilon)\cap(X-A)=\phi\right]\\
-&\Rightarrow&\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
+&\equiv&\forall_{A\in X}\left[x\notin \textrm{Bd}_XA\right]\\
+&\equiv&\forall_{A\in X}\exists_{\epsilon>0}\left[False\lor U(x,X,\epsilon)\cap(X-A)=\phi\right]\\
+&\equiv&\forall_{A\in X}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
 \end{eqnarray}
 </p>
 <p class="subp">
@@ -152,14 +160,27 @@ A\subset B &\Leftrightarrow& A\cap B = A \\
 \end{eqnarray}
 </p>
 <p>
-以上議論は任意の要素$x\in A$に対して成立するため、
+ゆえに補題#$\ref{lemma_metricspace}$が成立する。<br>
+任意の$i=1,2\cdots$に対し、集合$A_n$が距離空間$X$の部分空間とする。補題#$\ref{lemma_metricspace}$より
 \begin{eqnarray}
-Aは距離空間Xの開集合 \Rightarrow \forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]
+\forall_{x\in A_i}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A_i\right] = True
 \end{eqnarray}
+各$n$に対して
+\begin{eqnarray}
+U(x,X,\epsilon_i)\subset A_i
+\end{eqnarray}
+が成立する$\epsilon_i(i=1,2\cdots n)$を定義する。このとき同時に次が成立する。
+\begin{eqnarray}
+U(x,X,\epsilon_{\textrm{min}})\subset U(x,X,\epsilon_1)\cap U(x,X,\epsilon_2)\cap \cdots U(x,X,\epsilon_n)\subset A_1\cap A_2\cap\cdots A_n
+\end{eqnarray}
+ただし$\epsilon_{\textrm{min}}\equiv\min\left\{\epsilon_1,\epsilon_2\cdots,\epsilon_n\right\}$。<br>
+従って
+\begin{eqnarray}
+\forall_{x\in A_1\cap A_2\cap\cdots A_n}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A_1\cap A_2\cap\cdots A_n\right] = True
+\end{eqnarray}
+であり、$A_1\cap A_2\cap\cdots A_n$は開集合族$\mathscr{T}$に属する。
 </p>
-<p> 
-■$\forall_{x\in A}\exists_{\epsilon>0}\left[U(x,X,\epsilon)\subset A\right]\Rightarrow A$が距離空間$X$の開集合 の導出<br>
-</p>
+<h3>(iii)$A_1\cup A_2 \cup \cdots \cap A_n \in \mathscr{T}$</h3>
 
 <p class="mb10"></p>
 <p>以上</p>
